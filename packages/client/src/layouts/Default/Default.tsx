@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Header from '../components/Header';
+import Header from '../../components/Header/Header';
 
-const DefaultLayout: React.FC = () => {
+const Default: React.FC = () => {
   return (
     <React.Fragment>
       <Header/>
@@ -13,4 +13,4 @@ const DefaultLayout: React.FC = () => {
   )
 }
 
-export default DefaultLayout
+export default Default

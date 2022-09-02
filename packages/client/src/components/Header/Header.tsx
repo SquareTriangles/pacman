@@ -9,7 +9,6 @@ import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 
@@ -46,8 +45,7 @@ const Header: React.FC = () => {
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
+              component="span"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -102,8 +100,7 @@ const Header: React.FC = () => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component="span"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -126,7 +123,7 @@ const Header: React.FC = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar alt="Remy Sharp" src="" />
             </IconButton>
             <Menu
               sx={{ mt: '45px' }}
