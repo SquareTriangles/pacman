@@ -9,10 +9,10 @@ import { TableRowCustom } from '../TableRow/TableRow';
 import { TableCellName, TableCellNumber, TableCellScore } from '../TableCell/TableCell';
 
 const templateData = [
-  { name: 'packman', image: 'image_path', score: 1223, },
-  { name: 'batman', image: 'image_path', score: 1224, },
-  { name: 'iron man', image: 'image_path', score: 1225, },
-  { name: 'spider man', image: 'image_path', score: 1226, },
+  { name: 'packman', image: 'image_path', score: 12203, },
+  { name: 'batman', image: 'image_path', score: 12, },
+  { name: 'iron man', image: 'image_path', score: 1, },
+  { name: 'spider man', image: 'image_path', score: 123, },
 ];
 
 

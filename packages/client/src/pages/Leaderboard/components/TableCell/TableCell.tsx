@@ -56,8 +56,10 @@ type TtableCellScore = {
 const TableCellScore: React.FC<TtableCellScore> = ({ score }) => {
   return (<TableCellCustom className={`${styles.tableCell} ${styles.tableCell__type_score}`} size="small" align="right">
     <div>
-      <Avatar src={coinImage} />
-      <p className={`${styles.tableCell__text}`}>{score}</p>
+      <Avatar className={styles.icon} src={coinImage} />
+      <div className={styles.container}>
+        <p className={`${styles.tableCell__text}`}>{score}</p>
+      </div>
     </div>
   </TableCellCustom>)
 }
