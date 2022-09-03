@@ -17,7 +17,6 @@ const templateData = [
 
 
 const ScoreTable: React.FC = () => {
-
   return (
     <TableContainer className={styles.tableContainer}>
       <Table className={styles.table} aria-label="simple table">
