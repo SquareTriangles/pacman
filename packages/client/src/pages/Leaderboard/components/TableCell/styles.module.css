@@ -23,7 +23,7 @@
 }
 
 .tableCell__type_number p {
-  font-family: 'Alfa Slab One', sans-serif;
+  font-family: 'AlfaSlabOne', sans-serif;
   font-size: 1rem;
   font-weight: 900;
   display: block;
@@ -43,7 +43,7 @@
 }
 
 .tableCell__type_name p {
-  font-family: 'Press Start 2P', sans-serif;
+  font-family: 'PressStart2P', sans-serif;
   margin-left: 20px;
   align-self: flex-end;
   font-size: 1.5rem;
@@ -59,7 +59,7 @@
 }
 
 .tableCell__type_score p {
-  font-family: 'Press Start 2P', sans-serif;
+  font-family: 'PressStart2P', sans-serif;
   margin-left: 20px;
   font-size: 2rem;
   font-weight: 900;
