@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 type TerrorBoundaryProps = {
-  children: JSX.Element | JSX.Element[],
-  errorComponent: JSX.Element | JSX.Element[],
+  children: JSX.Element | JSX.Element[]
+  errorComponent: JSX.Element | JSX.Element[]
 }
 
 type TerrorBoundaryState = {
@@ -10,29 +10,32 @@ type TerrorBoundaryState = {
 }
 
 const myLogger = (error: Error, errorInfo: React.ErrorInfo) => {
-  console.log("error: " + error);
-  console.log("errorInfo: " + JSON.stringify(errorInfo));
-  console.log("componentStack: " + errorInfo.componentStack);
+  console.log('error: ' + error)
+  console.log('errorInfo: ' + JSON.stringify(errorInfo))
+  console.log('componentStack: ' + errorInfo.componentStack)
 }
 
-class ErrorBoundary extends React.Component<TerrorBoundaryProps, TerrorBoundaryState> {
+class ErrorBoundary extends React.Component<
+  TerrorBoundaryProps,
+  TerrorBoundaryState
+> {
   constructor(props: TerrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
+    super(props)
+    this.state = { hasError: false }
   }
   static getDerivedStateFromError(): TerrorBoundaryState {
-    return { hasError: true };
+    return { hasError: true }
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    myLogger(error, errorInfo);
+    myLogger(error, errorInfo)
   }
   render() {
-      if (this.state.hasError) {
-          return this.props.errorComponent;
-      }
-      return this.props.children;
+    if (this.state.hasError) {
+      return this.props.errorComponent
+    }
+    return this.props.children
   }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary

@@ -12,7 +12,10 @@ import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 
-const pages = [{ link: 'leaderboard', title: 'Таблица лидеров' }]
+const pages = [
+  { link: 'leaderboard', title: 'Таблица лидеров' },
+  { link: 'forum', title: 'Форум' },
+]
 const settings = ['Выйти']
 
 const Header: React.FC = () => {
@@ -41,7 +44,7 @@ const Header: React.FC = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Link to="/" style={{textDecoration: 'none'}}>
+          <Link to="/" style={{ textDecoration: 'none' }}>
             <Typography
               variant="h6"
               noWrap
@@ -88,7 +91,7 @@ const Header: React.FC = () => {
               }}>
               {pages.map(page => (
                 <MenuItem key={page.link} onClick={handleCloseNavMenu}>
-                  <Link to={page.link} style={{textDecoration: 'none'}}>
+                  <Link to={page.link} style={{ textDecoration: 'none' }}>
                     <Typography textAlign="center">{page.title}</Typography>
                   </Link>
                 </MenuItem>
@@ -111,11 +114,16 @@ const Header: React.FC = () => {
               color: 'inherit',
               textDecoration: 'none',
             }}>
-            <Link to="/" style={{textDecoration: 'none'}}>LOGO</Link>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              LOGO
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(page => (
-              <Link key={page.link} to={page.link} style={{textDecoration: 'none'}}>
+              <Link
+                key={page.link}
+                to={page.link}
+                style={{ textDecoration: 'none' }}>
                 {page.title}
               </Link>
             ))}
