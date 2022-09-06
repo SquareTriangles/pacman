@@ -11,11 +11,14 @@ import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
+import { useAppDispatch } from '../../hooks'
+import { logout } from '../../redux/user/user.actions'
 
 const pages = [{ link: 'leaderboard', title: 'Таблица лидеров' }]
-const settings = ['Выйти']
 
 const Header: React.FC = () => {
+  const dispatch = useAppDispatch()
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -34,6 +37,11 @@ const Header: React.FC = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleLogout = () => {
+    dispatch(logout())
+    handleCloseUserMenu()
   }
 
   return (
@@ -145,11 +153,11 @@ const Header: React.FC = () => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}>
-              {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">
+                  Выйти
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
