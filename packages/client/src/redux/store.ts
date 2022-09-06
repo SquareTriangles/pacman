@@ -8,10 +8,10 @@ const store = configureStore({
 })
 
 // @ts-ignore
-window.__store__ = store;
+window.__store__ = store
 
 export type RootState = ReturnType<typeof store.getState>
 
 export type AppDispatch = typeof store.dispatch
 
-export default store;
+export default store

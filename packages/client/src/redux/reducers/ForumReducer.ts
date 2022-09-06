@@ -1,24 +1,24 @@
 enum ActionTypes {
-  someActiomA = 'some_action_a',
-  someActiomB = 'some_action_B',
+  someActionA = 'some_action_a',
+  someActionB = 'some_action_B',
 }
 
 interface IActionA {
-  type: ActionTypes.someActiomA;
-  payload: string;
+  type: ActionTypes.someActionA
+  payload: string
 }
 
 interface IActionB {
-  type: ActionTypes.someActiomB;
-  payload: number;
+  type: ActionTypes.someActionB
+  payload: number
 }
 
 type IAction = IActionA | IActionB
 
-const initialState = {};
+const initialState = {}
 
-const ForumReducer = (state = initialState, action:IAction) => {
-  return state;
+const ForumReducer = (state = initialState, action: IAction) => {
+  return state
 }
 
-export default ForumReducer;
+export default ForumReducer
