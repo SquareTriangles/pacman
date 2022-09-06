@@ -183,15 +183,17 @@ const Forum: React.FC = () => {
         anchor="bottom"
         open={isShowTopicForm}
         onClose={hideTopicForm}>
-        <div className={styles.form}>
-          <h3 className={`${styles.header} ${styles.header__type_form}`}>
-            {FORM_HEDER}
-          </h3>
-          <TopicForm
-            handleSubmit={handleSubmitTopicForm}
-            closeForm={hideTopicForm}
-          />
-        </div>
+          <div className={styles.drawerContent}>
+            <div className={styles.form}>
+              <h3 className={`${styles.header} ${styles.header__type_form}`}>
+                {FORM_HEDER}
+              </h3>
+              <TopicForm
+                handleSubmit={handleSubmitTopicForm}
+                closeForm={hideTopicForm}
+              />
+            </div>
+          </div>
       </CustomDrawer>
     </div>
   )
