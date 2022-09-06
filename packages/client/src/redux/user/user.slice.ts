@@ -1,38 +1,37 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUserModel } from '../../models/user.model'
-import UserService from '../../api/services/user.services'
-
-export const getProfile = createAsyncThunk('user/getProfile', async () => {
-  const { data } = await UserService.getProfile()
-  return data
-})
-
-export const updateProfile = createAsyncThunk(
-  'user/updateProfile',
-  async (payload: IUserModel) => {
-    const { data } = await UserService.updateProfile(payload)
-    return data
-  }
-)
+import { signin, logout, getProfile, updateProfile } from './user.actions'
 
 export interface IAuthState {
-  user: IUserModel
+  isAuth: boolean
+  profile: IUserModel
 }
 
 const initialState: IAuthState = {
-  user: {} as IUserModel,
+  isAuth: false,
+  profile: {} as IUserModel,
 }
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setProfile: (state, action: PayloadAction<Partial<IUserModel>>) => {
+      state.profile = { ...state.profile, ...action.payload }
+    },
+  },
   extraReducers: builder => {
+    builder.addCase(signin.fulfilled, state => {
+      state.isAuth = true
+    })
+    builder.addCase(logout.fulfilled, state => {
+      state.isAuth = false
+    })
     builder.addCase(getProfile.fulfilled, (state, action) => {
-      state.user = action.payload
+      state.profile = action.payload
     })
     builder.addCase(updateProfile.fulfilled, (state, action) => {
-      state.user = action.payload
+      state.profile = action.payload
     })
   },
 })
