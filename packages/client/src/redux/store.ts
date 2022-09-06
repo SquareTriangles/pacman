@@ -1,14 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import ForumReducer from './reducers/ForumReducer'
+import authReducer from './auth/auth.slice'
+import userReducer from './user/user.slice'
 
 const store = configureStore({
   reducer: {
-    ForumReducer,
+    auth: authReducer,
+    user: userReducer,
   },
 })
-
-// @ts-ignore
-window.__store__ = store
 
 export type RootState = ReturnType<typeof store.getState>
 
