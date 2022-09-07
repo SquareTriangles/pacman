@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUserModel } from '../../models/user.model'
 import { signin, logout, getProfile, updateProfile } from './user.actions'
+import avatarImage from '../../assets/images/avatar.png';
 
 export interface IAuthState {
   isAuth: boolean
@@ -9,7 +10,14 @@ export interface IAuthState {
 
 const initialState: IAuthState = {
   isAuth: false,
-  profile: {} as IUserModel,
+  profile: {
+    first_name: 'Vladislav',
+    second_name: 'Kurochkin',
+    email: 'vladykoo@mail.ru',
+    phone: '+79990009900',
+    display_name: 'Vladykoo',
+    avatar: avatarImage
+  } as IUserModel,
 }
 
 export const userSlice = createSlice({
