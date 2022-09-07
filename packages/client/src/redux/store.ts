@@ -1,17 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers } from 'redux';
 import ForumReducer from './reducers/ForumReducer'
 
-const store = configureStore({
-  reducer: {
-    ForumReducer,
-  },
+const store = combineReducers({
+  ForumReducer,
 })
 
 // @ts-ignore
 window.__store__ = store
 
-export type RootState = ReturnType<typeof store.getState>
-
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store>
 
 export default store
