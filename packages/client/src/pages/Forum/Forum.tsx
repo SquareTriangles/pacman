@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect, ConnectedProps  } from 'react-redux';
 import TopicTable from './components/Table/TopicTable'
 import Discussion, { Tmessage } from './components/Discussion/Discussion'
 import { TdiscussionformData } from './components/Forms/DiscussionForm/DiscussionForm'
@@ -7,6 +8,10 @@ import { ForumLargeButton } from './components/Button/Button'
 import TopicForm, {
   TtopicformData,
 } from './components/Forms/TopicForm/TopicForm'
+import { RootState, AppDispatch } from '../../redux/store';
+import { IforumTopicModel } from '../../models/forum.model';
+import { forumSlice } from '../../redux/forum/forum.slice';
+import { getTopicList, setTopic, setMessage } from '../../redux/forum/forum.actions';
 import pacmanImage from '../../assets/images/pacman.png'
 import styles from './styles.module.css'
 
@@ -24,76 +29,79 @@ const getRandomArrayitem = (arr: Array<string>): string => {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-const getRundomNumber = () => Math.ceil(Math.random() * 1000)
-
-const TempMessageData = {
-  user: {
-    name: 'pacman',
-    photo: pacmanImage,
-  },
-  date: '12. 12. 2022',
-  body: 'some_message_text',
-}
-
-const tempTopicData = [
-  {
-    _id: getRundomNumber(),
-    userName: 'pacman',
-    header: 'Some question_1',
-    replyNumber: getRundomNumber(),
-    body: '',
-    color: getRandomArrayitem(COLOR_LIST),
-    messageList: [TempMessageData, TempMessageData],
-  },
-  {
-    _id: getRundomNumber(),
-    userName: 'batman',
-    header: 'Some question_2',
-    replyNumber: getRundomNumber(),
-    body: '',
-    color: getRandomArrayitem(COLOR_LIST),
-    messageList: [TempMessageData, TempMessageData],
-  },
-  {
-    _id: getRundomNumber(),
-    userName: 'spider man',
-    header: 'Some question_3',
-    replyNumber: getRundomNumber(),
-    body: '',
-    color: getRandomArrayitem(COLOR_LIST),
-    messageList: [TempMessageData, TempMessageData],
-  },
-  {
-    _id: getRundomNumber(),
-    userName: 'shrek',
-    header: 'Some question_4',
-    replyNumber: getRundomNumber(),
-    body: '',
-    color: getRandomArrayitem(COLOR_LIST),
-    messageList: [TempMessageData, TempMessageData],
-  },
-]
 
 type TtopicItem = {
   _id: number
-  userName: string
-  header: string
+  header: string,
+  userName: string,
   replyNumber: number
   color: string
   body: string
   messageList: Tmessage[]
 }
 
+type TmapStateToProps = (state: RootState) => ({
+  topicList: TtopicItem[],
+})
+
+const dateToString = (date:number) => String(date)
+
+const mapStateToProps:TmapStateToProps = (state: RootState) => {
+  const data = state.forum.topicList.map((topic) => {
+    return {
+      ...topic,
+      replyNumber: topic.messageList.length - 1,
+      color: getRandomArrayitem(COLOR_LIST),
+      userName: topic.owner.name,
+      messageList: topic.messageList.map((message) => ({ ...message, date: dateToString(message.date)}))
+    }
+  })
+  return ({
+    topicList: data,
+})};
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  getTopicList: () => {
+    dispatch(getTopicList());
+  },
+  setTopic: (data: Omit<IforumTopicModel, '_id'|'messageList'|'owner'>) => {
+    dispatch(setTopic(data))
+  },
+  setMessage: (data: { topicId: number, body: string }) => {
+    dispatch(setMessage(data))
+  }
+})
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type TforumProps = PropsFromRedux;
+
+
+
+
+
 const SHOW_TOPIC_FORUM_BUTTON_TEXT = 'New topic'
 const GO_BACK_FORUM_BUTTON_TEXT = 'Go back'
 const FORM_HEDER = 'Отправьте свое обращение'
 
-const Forum: React.FC = () => {
-  const [topicList, setTopicList] = React.useState<TtopicItem[]>(tempTopicData)
+const Forum: React.FC<TforumProps> = ({ topicList, getTopicList, setTopic, setMessage }) => {
   const [selectedTopic, setSelectedTopic] = React.useState<TtopicItem | null>(
     null
   )
   const [isShowTopicForm, setIsShowTopicForm] = React.useState<boolean>(false)
+  
+  React.useEffect(() => {
+    getTopicList();
+  }, []);
+
+  React.useEffect(() => {
+    const topic = topicList.find(topic => topic._id === selectedTopic?._id)
+    if (topic) {
+      setSelectedTopic(topic)
+    }
+  }, [topicList]);
 
   const showTopicForm = () => {
     setIsShowTopicForm(true)
@@ -110,45 +118,28 @@ const Forum: React.FC = () => {
     }
   }
 
-  const addTopic = (data: TtopicItem) => {
-    setTopicList([...topicList, data])
+  const addTopic = (data: TtopicformData) => {
+    const { header, body } = data;
+    setTopic({ header, body });
   }
 
   const handleSubmitTopicForm = (data: TtopicformData) => {
     const { header, body } = data
     addTopic({
-      _id: getRundomNumber(),
-      replyNumber: getRundomNumber(),
       header,
       body,
-      userName: 'pacman',
-      color: getRandomArrayitem(COLOR_LIST),
-      messageList: [],
     })
   }
 
   const addMessage = (data: TdiscussionformData) => {
     const { text } = data
-    const message = {
-      user: {
-        name: 'pacman',
-        photo: pacmanImage,
-      },
-      date: '12. 12. 2022',
-      body: text,
-    }
+        
     const topic = topicList.find(topic => topic._id === selectedTopic?._id)
     if (topic) {
-      topic.messageList.push(message)
-      const filteredTopicList = topicList.filter(
-        topic => topic._id !== selectedTopic?._id
-      )
-      filteredTopicList.push(topic)
-      setTopicList(filteredTopicList)
-      setSelectedTopic(topic)
+      setMessage({ topicId: topic._id, body: text })
     }
   }
-
+  console.log(topicList)
   const goToTopic = () => {
     setSelectedTopic(null)
   }
@@ -199,4 +190,4 @@ const Forum: React.FC = () => {
   )
 }
 
-export default Forum
+export default connector(Forum)
