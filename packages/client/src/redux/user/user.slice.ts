@@ -1,23 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUserModel } from '../../models/user.model'
-import { signin, logout, getProfile, updateProfile } from './user.actions'
-import avatarImage from '../../assets/images/avatar.png';
+import {
+  signin,
+  logout,
+  getProfile,
+  updateProfile,
+  updateAvatar,
+} from './user.actions'
+import avatarImage from '../../assets/images/avatar.png'
+import { RootState } from '../store'
 
 export interface IAuthState {
   isAuth: boolean
   profile: IUserModel
+  loading: boolean
 }
 
 const initialState: IAuthState = {
   isAuth: false,
   profile: {
-    first_name: 'Vladislav',
-    second_name: 'Kurochkin',
-    email: 'vladykoo@mail.ru',
-    phone: '+79990009900',
-    display_name: 'Vladykoo',
-    avatar: avatarImage
+    first_name: '',
+    second_name: '',
+    email: '',
+    phone: '',
+    display_name: '',
+    avatar: '',
   } as IUserModel,
+  loading: true,
 }
 
 export const userSlice = createSlice({
@@ -35,13 +44,32 @@ export const userSlice = createSlice({
     builder.addCase(logout.fulfilled, state => {
       state.isAuth = false
     })
+    builder.addCase(getProfile.pending, state => {
+      state.loading = true
+    })
     builder.addCase(getProfile.fulfilled, (state, action) => {
+      state.loading = false
       state.profile = action.payload
     })
+    builder.addCase(updateProfile.pending, state => {
+      state.loading = true
+    })
     builder.addCase(updateProfile.fulfilled, (state, action) => {
+      state.loading = false
+      state.profile = action.payload
+    })
+    builder.addCase(updateAvatar.pending, state => {
+      state.loading = true
+    })
+    builder.addCase(updateAvatar.fulfilled, (state, action) => {
+      state.loading = false
       state.profile = action.payload
     })
   },
 })
+
+export const selectAvatar = (state: RootState) =>
+  `https://ya-praktikum.tech/api/v2/resources${state.user.profile.avatar}` ||
+  avatarImage
 
 export default userSlice.reducer

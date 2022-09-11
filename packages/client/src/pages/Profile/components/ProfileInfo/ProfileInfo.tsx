@@ -1,5 +1,5 @@
 import React from 'react'
-import { IUserModel } from '../../models/user.model'
+import { IUserModel } from '../../../../models/user.model'
 import Paper from '@mui/material/Paper'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -10,7 +10,6 @@ import Avatar from '@mui/material/Avatar'
 import PhoneIcon from '@mui/icons-material/Phone'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import TagIcon from '@mui/icons-material/Tag'
-import avatarImage from '../../../assets/images/avatar.png'
 
 export interface IProfileIntoProps {
   profile: IUserModel
@@ -39,7 +38,7 @@ const ProfileInfo: React.FC<IProfileIntoProps> = ({ profile }) => {
         }}>
         <Avatar
           alt="avatar"
-          src={profile.avatar || avatarImage}
+          src={profile.avatar}
           sx={{
             width: 160,
             height: 160,
@@ -49,7 +48,7 @@ const ProfileInfo: React.FC<IProfileIntoProps> = ({ profile }) => {
       <Typography sx={{ mt: 3 }} variant="h6" align="center">
         {fullName}
       </Typography>
-      <List sx={{alignSelf: 'flex-start'}}>
+      <List>
         <ListItem disablePadding>
           <ListItemIcon>
             <TagIcon />

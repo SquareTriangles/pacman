@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { IUserModel } from '../../models/user.model'
+import { IUpdateProfileModel, IUpdatePasswordModel } from '../../models/user.model'
 import { ISigninModel } from '../../models/auth.model'
 import AuthService from '../../api/services/auth.services'
 import UserService from '../../api/services/user.services'
@@ -24,8 +24,24 @@ export const getProfile = createAsyncThunk('user/getProfile', async () => {
 
 export const updateProfile = createAsyncThunk(
   'user/updateProfile',
-  async (payload: IUserModel) => {
+  async (payload: IUpdateProfileModel) => {
     const { data } = await UserService.updateProfile(payload)
+    return data
+  }
+)
+
+export const updateAvatar = createAsyncThunk(
+  'user/updateAvatar',
+  async (payload: FormData) => {
+    const { data } = await UserService.updateAvatar(payload)
+    return data
+  }
+)
+
+export const updatePassword = createAsyncThunk(
+  'user/updatePassword',
+  async (payload: IUpdatePasswordModel) => {
+    const { data } = await UserService.updatePassword(payload)
     return data
   }
 )

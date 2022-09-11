@@ -8,3 +8,10 @@ export interface IUserModel {
   phone: string
   avatar: string
 }
+
+export interface IUpdateProfileModel extends Omit<IUserModel, 'id' | 'avatar' > {}
+
+export interface IUpdatePasswordModel {
+  oldPassword: string
+  newPassword: string
+}
