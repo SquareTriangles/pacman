@@ -78,10 +78,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 type TforumProps = PropsFromRedux;
 
-
-
-
-
 const SHOW_TOPIC_FORUM_BUTTON_TEXT = 'New topic'
 const GO_BACK_FORUM_BUTTON_TEXT = 'Go back'
 const FORM_HEDER = 'Отправьте свое обращение'
