@@ -139,7 +139,6 @@ const Forum: React.FC<TforumProps> = ({ topicList, getTopicList, setTopic, setMe
       setMessage({ topicId: topic._id, body: text })
     }
   }
-  console.log(topicList)
   const goToTopic = () => {
     setSelectedTopic(null)
   }

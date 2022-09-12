@@ -9,7 +9,7 @@ type TerrorBoundaryState = {
   hasError: boolean
 }
 
-const myLogger = (error: Error, errorInfo: React.ErrorInfo) => {
+const logger = (error: Error, errorInfo: React.ErrorInfo) => {
   console.log('error: ' + error)
   console.log('errorInfo: ' + JSON.stringify(errorInfo))
   console.log('componentStack: ' + errorInfo.componentStack)
@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    myLogger(error, errorInfo)
+    logger(error, errorInfo)
   }
   render() {
     if (this.state.hasError) {
