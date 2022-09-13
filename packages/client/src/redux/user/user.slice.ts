@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUserModel } from '../../models/user.model'
-import { signin, logout, getProfile, updateProfile } from './user.actions'
+import { signin, logout, getProfile, updateProfile, signup } from './user.actions'
 
 export interface IAuthState {
   isAuth: boolean
   profile: IUserModel
+  error: string
 }
 
 const initialState: IAuthState = {
   isAuth: false,
   profile: {} as IUserModel,
+  error: ''
 }
 
 export const userSlice = createSlice({
@@ -23,6 +25,10 @@ export const userSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(signin.fulfilled, state => {
       state.isAuth = true
+      state.error = ''
+    })
+    builder.addCase(signin.rejected, (state, action) => {
+      state.error = action.payload as string
     })
     builder.addCase(logout.fulfilled, state => {
       state.isAuth = false
@@ -33,7 +39,13 @@ export const userSlice = createSlice({
     builder.addCase(updateProfile.fulfilled, (state, action) => {
       state.profile = action.payload
     })
-  },
+    builder.addCase(signup.fulfilled, state => {
+      state.error = ''
+    })
+    builder.addCase(signup.rejected, (state, action) => {
+      state.error = action.payload as string
+    })
+  }
 })
 
 export default userSlice.reducer
