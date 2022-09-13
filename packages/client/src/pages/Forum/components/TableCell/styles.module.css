@@ -1,0 +1,52 @@
+.tableCell {
+}
+
+.tableCell__type_avatar {
+  width: 80px;
+  border-bottom: 3px solid black !important;
+}
+
+.tableCell__type_avatar div {
+  border: 3px solid black;
+  font-family: pacman, sans-serif;
+  color: black;
+}
+
+.tableCell__type_text {
+  border-bottom: 3px solid black !important;
+}
+
+.tableCell__type_text p {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: PressStart2P, sans-serif;
+}
+
+.tableCell__type_number {
+  border-bottom: 3px solid black !important;
+}
+
+.tableCell__type_number div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.number {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: PressStart2P, sans-serif;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: PressStart2P, sans-serif;
+}
