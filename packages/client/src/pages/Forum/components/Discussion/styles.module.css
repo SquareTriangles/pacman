@@ -1,0 +1,21 @@
+.body {
+  background-color: #fccf00;
+  border: 10px double black;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 0;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: PressStart2P, sans-serif;
+  padding: 15px 0;
+}
+
+.body form {
+  align-self: center;
+  width: 60%;
+}

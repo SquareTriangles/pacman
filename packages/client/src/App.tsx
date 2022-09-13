@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import NotFound from './pages/NotFound'
 import Leaderboard from './pages/Leaderboard'
 import Landing from './pages/Landing'
+import Forum from './pages/Forum'
 import './App.css'
 import 'normalize.css'
 
@@ -24,6 +25,14 @@ const App: React.FC = () => {
           element={
             <ProtectedRoute>
               <Leaderboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forum"
+          element={
+            <ProtectedRoute>
+              <Forum />
             </ProtectedRoute>
           }
         />
