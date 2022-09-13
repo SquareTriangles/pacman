@@ -12,7 +12,10 @@ import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 
-const pages = [{ link: 'leaderboard', title: 'Таблица лидеров' }]
+const pages = [
+  { link: 'leaderboard', title: 'Таблица лидеров' },
+  { link: 'forum', title: 'Форум' },
+]
 const settings = ['Выйти']
 
 const Header: React.FC = () => {

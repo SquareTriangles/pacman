@@ -1,0 +1,19 @@
+.button {
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #cca700;
+}
+
+.button__type_forum {
+  background-color: #fccf00;
+  border: 10px double black;
+  padding: 5px 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: PressStart2P, sans-serif;
+  text-transform: uppercase;
+}
