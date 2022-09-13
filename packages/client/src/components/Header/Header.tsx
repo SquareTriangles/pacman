@@ -12,6 +12,7 @@ import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import AdbIcon from '@mui/icons-material/Adb'
+
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { logout } from '../../redux/user/user.actions'
 
@@ -21,11 +22,14 @@ const pages = [
 ]
 const settings = ['Выйти']
 
+
 const LINK_COLOR = '#fff'
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch()
+
   const { avatar } = useAppSelector(state => state.user.profile)
+
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -175,6 +179,7 @@ const Header: React.FC = () => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}>
+
               <MenuItem onClick={handleCloseUserMenu}>
                 <Link
                   component={RouterLink}
@@ -192,6 +197,7 @@ const Header: React.FC = () => {
                   style={{ textDecoration: 'none' }}>
                   <Typography textAlign="center">Выйти</Typography>
                 </Link>
+
               </MenuItem>
             </Menu>
           </Box>
