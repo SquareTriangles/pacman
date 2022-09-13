@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -10,7 +10,10 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
+import Link from '@mui/material/Link'
 import AdbIcon from '@mui/icons-material/Adb'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { logout } from '../../redux/user/user.actions'
 
 const pages = [
   { link: 'leaderboard', title: 'Таблица лидеров' },
@@ -18,7 +21,12 @@ const pages = [
 ]
 const settings = ['Выйти']
 
+const LINK_COLOR = '#fff'
+
 const Header: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const { avatar } = useAppSelector(state => state.user.profile)
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -39,12 +47,21 @@ const Header: React.FC = () => {
     setAnchorElUser(null)
   }
 
+  const handleLogout = () => {
+    dispatch(logout())
+    handleCloseUserMenu()
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link
+            component={RouterLink}
+            to="/"
+            color={LINK_COLOR}
+            style={{ textDecoration: 'none' }}>
             <Typography
               variant="h6"
               noWrap
@@ -91,7 +108,11 @@ const Header: React.FC = () => {
               }}>
               {pages.map(page => (
                 <MenuItem key={page.link} onClick={handleCloseNavMenu}>
-                  <Link to={page.link} style={{ textDecoration: 'none' }}>
+                  <Link
+                    component={RouterLink}
+                    to={page.link}
+                    color={LINK_COLOR}
+                    style={{ textDecoration: 'none' }}>
                     <Typography textAlign="center">{page.title}</Typography>
                   </Link>
                 </MenuItem>
@@ -114,15 +135,21 @@ const Header: React.FC = () => {
               color: 'inherit',
               textDecoration: 'none',
             }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
+            <Link
+              component={RouterLink}
+              to="/"
+              color={LINK_COLOR}
+              style={{ textDecoration: 'none' }}>
               LOGO
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(page => (
               <Link
+                component={RouterLink}
                 key={page.link}
                 to={page.link}
+                color={LINK_COLOR}
                 style={{ textDecoration: 'none' }}>
                 {page.title}
               </Link>
@@ -131,7 +158,7 @@ const Header: React.FC = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="" />
+              <Avatar alt="Remy Sharp" src={avatar} />
             </IconButton>
             <Menu
               sx={{ mt: '45px' }}
@@ -148,11 +175,24 @@ const Header: React.FC = () => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}>
-              {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Link
+                  component={RouterLink}
+                  to="/profile"
+                  color="#000"
+                  style={{ textDecoration: 'none' }}>
+                  <Typography textAlign="center">Профиль</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <Link
+                  component={RouterLink}
+                  to="/"
+                  color="#000"
+                  style={{ textDecoration: 'none' }}>
+                  <Typography textAlign="center">Выйти</Typography>
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
