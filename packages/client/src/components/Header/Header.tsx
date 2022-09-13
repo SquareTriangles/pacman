@@ -15,7 +15,11 @@ import AdbIcon from '@mui/icons-material/Adb'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { logout } from '../../redux/user/user.actions'
 
-const pages = [{ link: 'leaderboard', title: 'Таблица лидеров' }]
+const pages = [
+  { link: 'leaderboard', title: 'Таблица лидеров' },
+  { link: 'forum', title: 'Форум' },
+]
+const settings = ['Выйти']
 
 const LINK_COLOR = '#fff'
 
