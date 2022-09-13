@@ -12,7 +12,7 @@ import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import AdbIcon from '@mui/icons-material/Adb'
-
+import { Button } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { logout } from '../../redux/user/user.actions'
 
@@ -190,13 +190,12 @@ const Header: React.FC = () => {
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleLogout}>
-                <Link
-                  component={RouterLink}
-                  to="/"
-                  color="#000"
-                  style={{ textDecoration: 'none' }}>
-                  <Typography textAlign="center">Выйти</Typography>
-                </Link>
+                <Button
+                onClick={handleLogout}
+                
+                  >
+                  Выйти
+                </Button>
 
               </MenuItem>
             </Menu>

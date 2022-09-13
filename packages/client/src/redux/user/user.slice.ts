@@ -3,6 +3,7 @@ import { IUserModel } from '../../models/user.model'
 
 import {
   signin,
+  signup,
   logout,
   getProfile,
   updateProfile,
@@ -15,6 +16,7 @@ export interface IAuthState {
   isAuth: boolean
   profile: IUserModel
   loading: boolean
+  error: string
 }
 
 const initialState: IAuthState = {
@@ -28,6 +30,7 @@ const initialState: IAuthState = {
     avatar: '',
   } as IUserModel,
   loading: true,
+  error: ''
 }
 
 export const userSlice = createSlice({
