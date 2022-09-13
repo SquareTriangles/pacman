@@ -1,15 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUserModel } from '../../models/user.model'
-import { signin, logout, getProfile, updateProfile } from './user.actions'
+
+import {
+  signin,
+  logout,
+  getProfile,
+  updateProfile,
+  updateAvatar,
+} from './user.actions'
+import avatarImage from '../../assets/images/avatar.png'
+import { RootState } from '../store'
 
 export interface IAuthState {
   isAuth: boolean
   profile: IUserModel
+  loading: boolean
 }
 
 const initialState: IAuthState = {
   isAuth: false,
-  profile: {} as IUserModel,
+  profile: {
+    first_name: '',
+    second_name: '',
+    email: '',
+    phone: '',
+    display_name: '',
+    avatar: '',
+  } as IUserModel,
+  loading: true,
 }
 
 export const userSlice = createSlice({
@@ -23,17 +41,46 @@ export const userSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(signin.fulfilled, state => {
       state.isAuth = true
+      state.error = ''
+    })
+    builder.addCase(signin.rejected, (state, action) => {
+      state.error = action.payload as string
     })
     builder.addCase(logout.fulfilled, state => {
       state.isAuth = false
     })
+    builder.addCase(getProfile.pending, state => {
+      state.loading = true
+    })
     builder.addCase(getProfile.fulfilled, (state, action) => {
+      state.loading = false
       state.profile = action.payload
+    })
+    builder.addCase(updateProfile.pending, state => {
+      state.loading = true
     })
     builder.addCase(updateProfile.fulfilled, (state, action) => {
+      state.loading = false
       state.profile = action.payload
     })
-  },
+    builder.addCase(updateAvatar.pending, state => {
+      state.loading = true
+    })
+    builder.addCase(updateAvatar.fulfilled, (state, action) => {
+      state.loading = false
+      state.profile = action.payload
+    })
+    builder.addCase(signup.fulfilled, state => {
+      state.error = ''
+    })
+    builder.addCase(signup.rejected, (state, action) => {
+      state.error = action.payload as string
+    })
+  }
 })
+
+export const selectAvatar = (state: RootState) =>
+  `https://ya-praktikum.tech/api/v2/resources${state.user.profile.avatar}` ||
+  avatarImage
 
 export default userSlice.reducer
