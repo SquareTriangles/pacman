@@ -1,18 +1,48 @@
-import { useEffect } from 'react'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import DefaultLayout from './layouts/Default'
+import ProtectedRoute from './components/ProtectedRoute'
+import Home from './pages/Home'
+import Profile from './pages/Profile'
+import Signin from './pages/Signin'
+import Signup from './pages/Signup'
+import NotFound from './pages/NotFound'
+import Leaderboard from './pages/Leaderboard'
+import Landing from './pages/Landing'
+import Forum from './pages/Forum'
 import './App.css'
+import 'normalize.css'
 
-function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
 
-    fetchServerData()
-  }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+const App: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<DefaultLayout />}>
+        <Route index element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/landing" element={<Landing />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRoute>
+              <Leaderboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forum"
+          element={
+            <ProtectedRoute>
+              <Forum />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  )
 }
 
 export default App

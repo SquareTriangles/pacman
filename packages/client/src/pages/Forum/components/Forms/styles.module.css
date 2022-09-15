@@ -1,0 +1,70 @@
+.form {
+  overflow: hidden;
+}
+
+.form__type_topic {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 40vw;
+  margin: 0 auto;
+  gap: 15px;
+  background-color: #fccf00;
+  border: 10px double black;
+  padding: 15px;
+}
+
+.form__type_discussion {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.form__type_discussion textarea {
+  width: 80%;
+}
+
+.form__type_discussion .submit {
+  margin-left: 10px;
+}
+
+.input {
+  font-family: PressStart2P, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1rem;
+  font-weight: 400;
+  background: transparent;
+  border: 2px solid black;
+}
+
+.input:focus,
+.input:focus-visible,
+.input:focus-within,
+.input:active {
+  border: 2px solid black;
+  outline: 2px solid red;
+}
+
+.textarea {
+  font-family: PressStart2P, sans-serif;
+  line-height: 1rem;
+  font-size: 0.6rem;
+  font-weight: 400;
+  background: transparent;
+  border: 2px solid black;
+}
+
+.textarea:focus,
+.textarea:focus-visible,
+.textarea:focus-within,
+.textarea:active {
+  border: 2px solid black;
+  outline: 2px solid red;
+}
+
+.submit {
+  width: fit-content;
+  margin-left: auto;
+}
