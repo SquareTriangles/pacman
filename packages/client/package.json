@@ -8,15 +8,17 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest"
+    "test": "jest ./"
   },
   "dependencies": {
+
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.3",
     "@mui/material": "^5.10.3",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
     "eslint-config-prettier": "^8.5.0",
     "normalize.css": "^8.0.1",
     "prettier": "^2.7.1",
