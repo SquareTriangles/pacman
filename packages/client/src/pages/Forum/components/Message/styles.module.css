@@ -28,8 +28,8 @@
   font-family: PressStart2P, sans-serif;
 }
 
-.column__type_slim {
-  /* width: 30%; */
+.column__type_slim div {
+  aspect-ratio: 1;
 }
 
 .avatar {

@@ -20,7 +20,7 @@ export interface IAuthState {
 }
 
 const initialState: IAuthState = {
-  isAuth: false,
+  isAuth: true,
   profile: {
     first_name: '',
     second_name: '',
