@@ -22,10 +22,6 @@
   padding: 20px;
 }
 
-.form__type_discussion textarea {
-  width: 80%;
-}
-
 .form__type_discussion .submit {
   margin-left: 10px;
 }

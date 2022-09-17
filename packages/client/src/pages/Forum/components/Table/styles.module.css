@@ -5,3 +5,27 @@
   background-color: #fccf00;
   border: 10px double black;
 }
+
+@media screen and (max-width: 1280px) {
+  .table {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .table {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .table {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .table {
+    font-size: 0.7rem;
+  }
+} 

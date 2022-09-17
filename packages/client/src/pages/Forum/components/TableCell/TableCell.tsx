@@ -16,7 +16,11 @@ const LetterAvatarTableCell: React.FC<TletterAvatarTableCell> = ({
     <TableCellCustom
       className={`${styles.tableCell} ${styles.tableCell__type_avatar}`}
       align="left"
-      size="small">
+      size="small"
+      sx={{
+        padding: '0.5vw',
+      }}
+      >
       <Avatar sx={{ bgcolor: color }}>{letter}</Avatar>
     </TableCellCustom>
   )
@@ -31,7 +35,11 @@ const TextTableCell: React.FC<TtextTableCell> = ({ text }) => {
     <TableCellCustom
       className={`${styles.tableCell} ${styles.tableCell__type_text}`}
       align="left"
-      size="medium">
+      size="medium"
+      sx={{
+        padding: '0.5vw',
+      }}
+      >
       <p>{text}</p>
     </TableCellCustom>
   )
@@ -50,7 +58,11 @@ const TitledNumberTableCell: React.FC<TtitledNumberTableCell> = ({
     <TableCellCustom
       className={`${styles.tableCell} ${styles.tableCell__type_number}`}
       align="right"
-      size="small">
+      size="small"
+      sx={{
+        padding: '0.5vw',
+      }}
+      >
       <div>
         <p className={styles.number}>{number}</p>
         <p className={styles.title}>{title}</p>
