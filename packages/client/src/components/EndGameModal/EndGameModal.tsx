@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,24 +7,24 @@ import Stack from "@mui/material/Stack";
 import './styles.modul.css'
 import { useNavigate } from "react-router-dom";
 
-const EndGameModal: React.FC = () => {
-    const navigate = useNavigate()
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+interface IEndGameModalProps{
+    isOpen: boolean
+    newGameAction: () => void
+    endGameAction: () => void
+}
+
+const EndGameModal: React.FC<IEndGameModalProps> = (props) => {
+
     const handleNewGame = () => {
-        console.log('New game')
-        handleClose()
+        props.newGameAction()
     }
     const handleEndGame = () => {
-        navigate('/')
+        props.endGameAction()
     }
     return (
         <>
-            <Button onClick={handleOpen}>Open modal</Button>
             <Modal
-                open={open}
-                onClose={handleClose}
+                open={props.isOpen}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >

@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound'
 import Leaderboard from './pages/Leaderboard'
 import Landing from './pages/Landing'
 import Forum from './pages/Forum'
+import GameApp from './pages/Game'
 import './App.css'
 import 'normalize.css'
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/landing" element={<Landing />} />
+        <Route path="/game" element={<GameApp />} />
         <Route
           path="/leaderboard"
           element={
