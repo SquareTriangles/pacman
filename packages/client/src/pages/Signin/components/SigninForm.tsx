@@ -13,6 +13,7 @@ import {
   login as loginRegisterOptions,
   password as passwordRegisterOptions,
 } from '../../../utils/registerOptions'
+import * as routeList from '../../../utils/Routes';
 
 const SigninForm: React.FC = () => {
   const dispatch = useAppDispatch()  
@@ -66,7 +67,7 @@ const SigninForm: React.FC = () => {
       </Button>
       <Link
         component={RouterLink}
-        to="/signup"
+        to={routeList.SIGNUP_ROUTE}
         style={{ textDecoration: 'none' }}>
         <Typography variant="subtitle2" align="center">
           Еще нет аккаунта? Зарегистрироваться.
