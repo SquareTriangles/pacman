@@ -1,5 +1,7 @@
 .tableCell {
   border-bottom-color: #fccf00 !important;
+  font-size: inherit !important;
+  /* padding: 0 !important; */
 }
 
 .tableCell__type_number {
@@ -24,7 +26,7 @@
 
 .tableCell__type_number p {
   font-family: 'AlfaSlabOne', sans-serif;
-  font-size: 1rem;
+  font-size: 1.2em;
   font-weight: 900;
   display: block;
   position: absolute;
@@ -43,11 +45,14 @@
 
 .tableCell__type_name p {
   font-family: 'PressStart2P', sans-serif;
-  margin-left: 20px;
+  margin-left: 0.5em;
   align-self: flex-end;
-  font-size: 1.5rem;
+  font-size: 1.75em;
   font-weight: normal;
   font-style: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tableCell__type_score > div {
@@ -73,8 +78,7 @@
 
 .tableCell__type_score p {
   font-family: 'PressStart2P', sans-serif;
-  /* margin-left: 20px; */
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 900;
 }
 
