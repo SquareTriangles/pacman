@@ -17,3 +17,17 @@
   font-family: PressStart2P, sans-serif;
   text-transform: uppercase;
 }
+
+@media screen and (max-width: 900px) {
+  .button__type_forum {
+    font-size: 0.6rem;
+    padding: 5px 10px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .button__type_forum {
+    font-size: 0.5rem;
+    padding: 3px 7px;
+  }
+}

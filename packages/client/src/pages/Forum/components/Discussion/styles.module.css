@@ -9,7 +9,7 @@
 .header {
   padding: 0;
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   font-weight: 600;
   font-family: PressStart2P, sans-serif;
   padding: 15px 0;
@@ -17,5 +17,45 @@
 
 .body form {
   align-self: center;
-  width: 60%;
+  width: 90%;
 }
+
+.messageText {
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+@media screen and (max-width: 1280px) {
+  .body {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .body {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .body {
+    font-size: 0.8rem;
+  }
+  .body form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+  .body button {
+    align-self: flex-end;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .body {
+    font-size: 0.7rem;
+  }
+} 

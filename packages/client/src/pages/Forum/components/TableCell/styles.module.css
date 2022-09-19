@@ -1,8 +1,8 @@
 .tableCell {
+  font-size: inherit !important;
 }
 
 .tableCell__type_avatar {
-  width: 80px;
   border-bottom: 3px solid black !important;
 }
 
@@ -19,7 +19,7 @@
 .tableCell__type_text p {
   margin: 0;
   padding: 0;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 600;
   font-family: PressStart2P, sans-serif;
 }
@@ -38,7 +38,7 @@
 .number {
   margin: 0;
   padding: 0;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: 800;
   font-family: PressStart2P, sans-serif;
 }
@@ -46,7 +46,7 @@
 .title {
   margin: 0;
   padding: 0;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 600;
   font-family: PressStart2P, sans-serif;
 }
