@@ -12,9 +12,14 @@ import Forum from './pages/Forum'
 import * as routeList from './utils/Routes';
 import './App.css'
 import 'normalize.css'
+import startServiceWorker from './serviceWorker';
 
 
 const App: React.FC = () => {
+
+  React.useEffect(() => {
+    startServiceWorker();
+  }, [])
   return (
     <Routes>
       <Route path={routeList.MAIN_ROUTE} element={<DefaultLayout />}>
