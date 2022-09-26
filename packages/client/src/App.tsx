@@ -9,6 +9,7 @@ import Signup from './pages/Signup'
 import NotFound from './pages/NotFound'
 import Landing from './pages/Landing'
 import Forum from './pages/Forum'
+import GameApp from './pages/Game'
 import * as routeList from './utils/Routes';
 import './App.css'
 import 'normalize.css'
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <Route path={routeList.SIGNIN_ROUTE} element={<Signin />} />
         <Route path={routeList.SIGNUP_ROUTE} element={<Signup />} />
         <Route path={routeList.ABOUT_ROUTE} element={<Landing />} />
+        <Route path={routeList.MAIN_ROUTE} element={<GameApp />} />
         <Route
           path={routeList.FORUM_ROUTE}
           element={
