@@ -29,7 +29,7 @@ const App: React.FC = () => {
         <Route path={routeList.SIGNIN_ROUTE} element={<Signin />} />
         <Route path={routeList.SIGNUP_ROUTE} element={<Signup />} />
         <Route path={routeList.ABOUT_ROUTE} element={<Landing />} />
-        <Route path={routeList.MAIN_ROUTE} element={<GameApp />} />
+        <Route path={routeList.GAME_ROUTE} element={<GameApp />} />
         <Route
           path={routeList.FORUM_ROUTE}
           element={
