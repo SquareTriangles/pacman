@@ -3,6 +3,7 @@ import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
+import * as routeList from '../../utils/Routes';
 
 const Landing: React.FC = () => {
     return (
@@ -18,8 +19,8 @@ const Landing: React.FC = () => {
                     justifyContent: "center"
                 }}
                 direction="row">
-                <Link className="landing__link_signin" to="/signin">Войти</Link>
-                <Link className="landing__link_signup" to="/signup">Зарегистрироваться</Link>
+                <Link className="landing__link_signin" to={routeList.SIGNIN_ROUTE}>Войти</Link>
+                <Link className="landing__link_signup" to={routeList.SIGNUP_ROUTE}>Зарегистрироваться</Link>
             </Stack>
         </Container>
     )

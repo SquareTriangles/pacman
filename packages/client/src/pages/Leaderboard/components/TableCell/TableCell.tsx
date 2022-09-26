@@ -15,7 +15,11 @@ const TableCellNumber: React.FC<TtableCellNumber> = ({ orderNumber }) => {
     <TableCellCustom
       className={`${styles.tableCell} ${styles.tableCell__type_number}`}
       size="small"
-      align="left">
+      align="left"
+      sx={{
+        padding: '0 0 0 0.5vw',
+      }}
+      >
       <div>
         <img src={laurelImage} />
         <p className={styles.tableCell__text}>{orderNumber}</p>
@@ -34,9 +38,18 @@ const TableCellName: React.FC<TtableCellName> = ({ name, image }) => {
     <TableCellCustom
       className={`${styles.tableCell} ${styles.tableCell__type_name}`}
       size="medium"
-      align="left">
+      align="left"
+      sx={{
+        padding: '0.5vw 0.25vw 0.5vw 0.25vw',
+      }}
+      >
       <div>
-        <Avatar src={pacmanImage} />
+        <Avatar 
+          src={pacmanImage} 
+          sx={{
+            padding: '0 0.5vw 0 5px',
+          }}
+        />
         <p className={`${styles.tableCell__text}`}>{name}</p>
       </div>
     </TableCellCustom>
@@ -52,7 +65,11 @@ const TableCellScore: React.FC<TtableCellScore> = ({ score }) => {
     <TableCellCustom
       className={`${styles.tableCell} ${styles.tableCell__type_score}`}
       size="small"
-      align="right">
+      align="right"
+      sx={{
+        padding: '0 0.5vw 0 5px',
+      }}
+      >
       <div>
         <Avatar className={styles.icon} src={coinImage} />
         <div className={styles.container}>
