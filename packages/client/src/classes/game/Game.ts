@@ -5,9 +5,7 @@ import Enemy from "./Enemy"
 
 const EatCoin = new Audio()
 EatCoin.src = './src/assets/audio/eat_coin_sound.mp3'
-EatCoin.addEventListener('playing', function(){
-    console.log('start playing')
-})
+
 class Game{
     field: Field
     packman: Packman
@@ -49,9 +47,7 @@ class Game{
         this.enemies.forEach(enemy => {
             enemy.update()
         })
-
         this.packman.update()
-        this.field.update()
     }
     public getScore(){
         return this.score

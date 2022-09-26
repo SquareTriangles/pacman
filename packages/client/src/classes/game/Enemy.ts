@@ -53,22 +53,18 @@ class Enemy {
         switch (randomDirection) {
             case DIRECTION.UP: 
                 this.nextDirection = DIRECTION.UP
-            //    this.setDirection(0, -1); 
                 this.setNextDirection(0, -1)
                 break;
             case DIRECTION.RIGHT: 
                 this.nextDirection = DIRECTION.RIGHT
-            //    this.setDirection(1, 0);
                 this.setNextDirection(1, 0)
                 break;
             case DIRECTION.DOWN:
                 this.nextDirection = DIRECTION.DOWN 
-            //    this.setDirection(0, 1);
                 this.setNextDirection(0, 1)
                 break;
             case DIRECTION.LEFT:
                 this.nextDirection = DIRECTION.LEFT
-            //    this.setDirection(-1, 0); 
                 this.setNextDirection(-1, 0)
                 break;
         }
@@ -103,7 +99,6 @@ class Enemy {
         
         if (Number.isInteger(this.x / CELL_SIDE) && Number.isInteger(this.y / CELL_SIDE)) {
             this.changeDirection()
- //           console.log(this.nextDirectionX, this.nextDirectionY)
             if(!this.isEqualDirections() && !this.didCollideWithWall()){
                 this.setDirection(this.nextDirectionX, this.nextDirectionY)
                 this.changeDirectionTime = Date.now() + Math.floor(Math.random()* 5000)
@@ -111,8 +106,6 @@ class Enemy {
             if (this.didCollideWithWall()) {
                 this.setDirection(0, 0)
                 this.setMoveDirection()
-            }else{
-                
             }
         }
         this.x = this.x + this.directionX * this.velocity

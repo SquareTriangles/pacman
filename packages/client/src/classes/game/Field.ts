@@ -29,10 +29,7 @@ class Field {
         })
         return count
     }
-    public update(){
 
-            
-    }
     public render(ctx: CanvasRenderingContext2D){
         let x = 0
         let y = 0
