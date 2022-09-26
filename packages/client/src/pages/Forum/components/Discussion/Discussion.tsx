@@ -35,7 +35,7 @@ const Discussion: React.FC<DtiscussionProps> = ({
       {data.map(({ user, date, body }, index) => {
         return (
           <Message key={index} user={user} date={date}>
-            {body}
+            <p className={styles.messageText}>{body}</p>
           </Message>
         )
       })}

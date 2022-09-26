@@ -1,6 +1,6 @@
 import Block from "./Block"
 import Point from "./Point"
-import { POINT_NUMBER, BLOCK_NUMBER, CELL_SIDE } from "./constants"
+import { CELL, CELL_SIDE } from "./constants"
 
 class Field {
     fieldMap: Array<number[]>
@@ -19,14 +19,19 @@ class Field {
         })
         return copy
     }
+
     private getMaxCountCoins(template: Array<number[]>){
         let count = 0
         template.forEach(row => {
             row.forEach(cell => {
-                if(cell === 1) count ++
+                if(cell === CELL.COIN) count ++
             })
         })
         return count
+    }
+    public update(){
+
+            
     }
     public render(ctx: CanvasRenderingContext2D){
         let x = 0
@@ -35,22 +40,22 @@ class Field {
             
             x = 0
             element.forEach((num: number) => {
-                if(num === 0){
+                if(num === CELL.EMPTY){
                     ctx.fillStyle = '#151638'
                     ctx.fillRect(x, y, CELL_SIDE, CELL_SIDE)
-                }                
-                if(num === 1){
+                }
+                if(num === CELL.COIN){
                     ctx.fillStyle = '#151638'
                     ctx.fillRect(x, y, CELL_SIDE, CELL_SIDE)                    
                     ctx.fillStyle = 'yellow'
                     const centerX = x + CELL_SIDE / 2
                     const centerY = y + CELL_SIDE / 2
                     ctx.beginPath()
-                    ctx.arc(centerX, centerY, CELL_SIDE/4, 0, 2*Math.PI, false)
+                    ctx.arc(centerX, centerY, CELL_SIDE/5, 0, 2*Math.PI, false)
                     ctx.stroke()
                     ctx.fill()
                 }
-                if(num === 2){
+                if(num === CELL.WALL){
                     ctx.fillStyle = '#06a2d1'
                     ctx.fillRect(x, y, CELL_SIDE, CELL_SIDE)
                 }
