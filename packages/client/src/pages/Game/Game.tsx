@@ -5,6 +5,7 @@ import Packman from "../../classes/game/Packman";
 import { CELL_SIDE } from "../../classes/game/constants";
 import EndGameModal from "../../components/EndGameModal";
 import { useNavigate } from "react-router-dom";
+import * as routeList from '../../utils/Routes'
 
 const GameApp: React.FC = () => {
     const [game, setGame] = useState(new Game)
@@ -47,7 +48,7 @@ const GameApp: React.FC = () => {
         setIsModalOpen(true)
     }
     const closeGame = () => {
-        navigate('/')
+        navigate(routeList.MAIN_ROUTE)
     }
     const animate = () => {
         update()

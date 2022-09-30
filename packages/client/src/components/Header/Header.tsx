@@ -19,6 +19,7 @@ import * as routeList from '../../utils/Routes';
 import { withAuth } from '../../HOCs'
 
 const pages = [
+  { link: routeList.GAME_ROUTE, title: 'Игра' },
   { link: routeList.FORUM_ROUTE, title: 'Форум' },
   { link: routeList.SIGNIN_ROUTE, title: 'Вход' },
   { link: routeList.SIGNUP_ROUTE, title: 'Регистрация' },
@@ -82,7 +83,7 @@ const LinkHeaderBox:React.FC<TlinkHeaderBoxProps> = ({ pages }) => {
     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
       {
       pages.map(page => {
-        if (page.link === routeList.FORUM_ROUTE) {
+        if (page.link === routeList.FORUM_ROUTE || page.link === routeList.GAME_ROUTE) {
           return (
             <AuthMainLink 
               key={page.link}
