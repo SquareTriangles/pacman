@@ -62,7 +62,7 @@ const GameApp: React.FC = () => {
             animate()
         }
 
-    })
+    }, [])
 
     return (
         <>
