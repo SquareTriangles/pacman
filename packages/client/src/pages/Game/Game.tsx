@@ -65,13 +65,8 @@ const GameApp: React.FC = () => {
             const ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
             animate()
         }
+}, [])
 
-<<<<<<< HEAD
-    })
-=======
-    }, [])
-
->>>>>>> main
     return (
         <>
             <Box 
