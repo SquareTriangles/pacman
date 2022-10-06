@@ -58,6 +58,9 @@ export const userSlice = createSlice({
     builder.addCase(getProfile.fulfilled, (state, action) => {
       state.loading = false
       state.profile = action.payload
+      if (action.payload) {
+        state.isAuth = true
+      }
     })
     builder.addCase(updateProfile.pending, state => {
       state.loading = true
