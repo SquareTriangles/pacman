@@ -66,7 +66,12 @@ const GameApp: React.FC = () => {
             animate()
         }
 
+<<<<<<< HEAD
     })
+=======
+    }, [])
+
+>>>>>>> main
     return (
         <>
             <Box 
