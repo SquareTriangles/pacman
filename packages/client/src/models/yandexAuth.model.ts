@@ -3,6 +3,10 @@ export interface IYandexSigninModel {
   redirect_uri: string
 }
 
-export interface IYandexServiceIDModel {
+export interface IGetYandexServiceIDModel {
   redirect_uri: string
+}
+
+export interface IYandexServiceIDModel {
+  service_id: string
 }
