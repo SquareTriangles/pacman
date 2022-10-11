@@ -6,8 +6,12 @@ import { CELL_SIDE } from "../../classes/game/constants";
 import EndGameModal from "../../components/EndGameModal";
 import { useNavigate } from "react-router-dom";
 import * as routeList from '../../utils/Routes'
+import { useFullscreenStatus } from '../../hooks';
+import FullScreenButton from './components/FullScreenButton'
 
 const GameApp: React.FC = () => {
+    const fullScreenRef:React.RefObject<HTMLElement> = useRef(null)
+    const [isFullscreen, changeFullScreenMode] = useFullscreenStatus(fullScreenRef);
     const [game, setGame] = useState(new Game)
     const canvasRef = useRef(null)
     const [score, setScore] = useState(0)
@@ -61,20 +65,26 @@ const GameApp: React.FC = () => {
             const ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
             animate()
         }
-
-    }, [])
+}, [])
 
     return (
         <>
-            <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column'
+            <Box 
+                ref={fullScreenRef}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column'
             }}>
                 <Typography variant='h3'>Packman</Typography>
 
                 <canvas ref={canvasRef} width={300} height={300}></canvas>
+                {
+                    isFullscreen !== null
+                        ? <FullScreenButton onClick={changeFullScreenMode} isActive={isFullscreen} />
+                        : </>
+                }
                 <EndGameModal
                     isOpen={isModalOpen}
                     newGameAction={startGame}
@@ -83,7 +93,6 @@ const GameApp: React.FC = () => {
             </Box>
 
         </>
-
     )
 }
 
