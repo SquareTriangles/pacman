@@ -10,3 +10,7 @@ export interface IGetYandexServiceIDModel {
 export interface IYandexServiceIDModel {
   service_id: string
 }
+
+export interface IYandexServiceErrorModel {
+  reason: string
+}

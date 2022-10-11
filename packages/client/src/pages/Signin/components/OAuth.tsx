@@ -33,11 +33,11 @@ const OAuthPanel:React.FC = () => {
   }
 
   const handleOAuth = async (code: string, redirect_uri: string) => {
-    const status = await dispatch(signinWithOAuthYandex({code, redirect_uri}));
-    if (typeof status === 'string') {
+    const statusAction = await dispatch(signinWithOAuthYandex({code, redirect_uri}));
+    if (statusAction.payload) {
       dispatch(getProfile());
     } else {
-      console.log(status)
+      console.log(statusAction.payload)
     }
   }
 
