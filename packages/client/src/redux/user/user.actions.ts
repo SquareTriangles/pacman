@@ -79,7 +79,6 @@ export const signinWithOAuthYandex = createAsyncThunk(
   'user/siginWithYandexOAuth',
   async (params: IYandexSigninModel) => {
     const { data } = await YandexAuth.signin(params)
-    console.log(data)
     return data
   }
 )
