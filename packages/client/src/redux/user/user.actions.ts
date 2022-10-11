@@ -3,6 +3,7 @@ import { IUpdateProfileModel, IUpdatePasswordModel } from '../../models/user.mod
 
 import { IUserModel } from '../../models/user.model'
 import { ISigninModel, ISignupModel } from '../../models/auth.model'
+import { IYandexSigninModel } from '../../models/yandexAuth.model';
 
 import AuthService from '../../api/services/auth.services'
 import UserService from '../../api/services/user.services'
@@ -71,5 +72,14 @@ export const getOAuthYandexServiceId = createAsyncThunk(
   async (redirect_uri: string) => {
     const { data } = await YandexAuth.getServiceID({ redirect_uri })
     return data
+  }
+)
+
+export const signinWithOAuthYandex = createAsyncThunk(
+  'user/siginWithYandexOAuth',
+  async (data: IYandexSigninModel) => {
+    const code = await YandexAuth.signin(data)
+    console.log(code)
+    return code
   }
 )
