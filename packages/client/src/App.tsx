@@ -23,6 +23,7 @@ const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const isCookeisValid = () => {
+    console.log(213)
     dispatch(getProfile());
   }
 
