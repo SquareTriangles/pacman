@@ -2,6 +2,7 @@ import React from 'react'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import SigninForm from './components/SigninForm'
+import OAuthPanel from './components/OAuth';
 
 const Signin: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const Signin: React.FC = () => {
         Вход
       </Typography>
       <SigninForm />
+      <OAuthPanel />
     </Container>
   )
 }
