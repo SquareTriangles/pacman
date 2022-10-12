@@ -1,15 +1,20 @@
 import React from 'react'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';  
 import Leaderboard from '../Leaderboard'
-import Button from '@mui/material/Button';
 import { ForumLargeButton } from '../Forum/components/Button/Button';
+import { getTeamLeaderboard } from '../../redux/leaderboard/leaderboard.actions'
+import { useAppDispatch } from '../../hooks'
 import styles from './styles.module.css';
 
 const MAIN_BUTTON_TEXT = 'PLAY';
 
 const Home: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(getTeamLeaderboard({cursor: 0, limit: 10 }));
+  }, [])
   return (
     <Box>
       <Grid container>
@@ -17,7 +22,6 @@ const Home: React.FC = () => {
           alignSelf: 'center',
           display: 'flex',
           justifyContent: 'center',
-          border: '1px solid coral',
         }}>
           <ForumLargeButton text={MAIN_BUTTON_TEXT} className={styles.button}/>
         </Grid>

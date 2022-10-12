@@ -23,7 +23,6 @@ const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const isCookeisValid = () => {
-    console.log(213)
     dispatch(getProfile());
   }
 
@@ -32,6 +31,7 @@ const App: React.FC = () => {
   React.useEffect(() => {
     startServiceWorker();
   }, [])
+
   return (
     <Routes>
       <Route path={routeList.MAIN_ROUTE} element={<DefaultLayout />}>
