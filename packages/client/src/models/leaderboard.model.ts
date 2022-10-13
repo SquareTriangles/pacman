@@ -1,11 +1,11 @@
-export const TEAM_NAME = 'square-triangles';
+export const TEAM_NAME = 'pacman';
 
 const RATING_FIELD_NAME = 'score';
 
 export interface ILeaderboardData {
   id: string,
   login: string,
-  score: string,
+  score: number,
 }
 
 export interface IAddLeaderboardUser {

@@ -17,12 +17,27 @@ const templateData = [
   { name: 'spider man', image: 'image_path', score: 123 },
 ]
 
-const ScoreTable: React.FC = () => {
+type TTableRow = {
+  name: string,
+  image: string,
+  score: number,
+}
+
+type TScoreTable = {
+  data: TTableRow[]
+}
+
+const ScoreTable: React.FC<TScoreTable> = ({
+  data = [],
+}) => {
   return (
     <TableContainer className={styles.tableContainer}>
       <Table className={styles.table}>
         <TableBody>
-          {templateData.map((item, index) => {
+          {data.map((item, index) => {
+            if (index > 5) {
+              return <></>
+            }
             return (
               <TableRowCustom key={index}>
                 <TableCellNumber orderNumber={index + 1} />

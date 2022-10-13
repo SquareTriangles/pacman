@@ -28,7 +28,6 @@ export const leaderboardSlice = createSlice({
           return {
             "data": {
               ...data,
-              score: data.score + item.data.score
             } 
           }
         } return item
