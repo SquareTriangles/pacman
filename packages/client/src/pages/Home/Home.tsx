@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, FC } from 'react'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Leaderboard from '../Leaderboard'
@@ -11,11 +11,11 @@ import styles from './styles.module.css';
 
 const MAIN_BUTTON_TEXT = 'PLAY';
 
-const Home: React.FC = () => {
+const Home: FC = () => {
   const dispatch = useAppDispatch();
   const leaderboardList = useAppSelector(selectLeaderboardUserList) || [];
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getTeamLeaderboard({cursor: 0, limit: 10 }));
   }, [leaderboardList])
   return (
