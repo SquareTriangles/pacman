@@ -36,7 +36,7 @@ const ScoreTable: React.FC<TScoreTable> = ({
         <TableBody>
           {data.map((item, index) => {
             if (index > 5) {
-              return < />
+              return <></>
             }
             return (
               <TableRowCustom key={index}>
