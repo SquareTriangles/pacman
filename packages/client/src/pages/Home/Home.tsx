@@ -5,16 +5,19 @@ import Leaderboard from '../Leaderboard'
 import { ForumLargeButton } from '../Forum/components/Button/Button';
 import { getTeamLeaderboard } from '../../redux/leaderboard/leaderboard.actions'
 import { useAppDispatch } from '../../hooks'
+import { useAppSelector } from '../../hooks'
+import { selectLeaderboardUserList } from '../../redux/leaderboard/leaderboard.slice'
 import styles from './styles.module.css';
 
 const MAIN_BUTTON_TEXT = 'PLAY';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
+  const leaderboardList = useAppSelector(selectLeaderboardUserList) || [];
 
   React.useEffect(() => {
     dispatch(getTeamLeaderboard({cursor: 0, limit: 10 }));
-  }, [])
+  }, [leaderboardList])
   return (
     <Box>
       <Grid container>
