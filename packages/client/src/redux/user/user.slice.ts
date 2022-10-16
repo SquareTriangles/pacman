@@ -101,4 +101,6 @@ export const selectAvatar = (state: RootState) =>
 
 export const selectServiceId = (state: RootState) => state.user.appState.service_id
 
+export const selectProfile = (state: RootState) => state.user.profile;
+
 export default userSlice.reducer

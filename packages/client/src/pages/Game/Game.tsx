@@ -6,20 +6,29 @@ import { CELL_SIDE } from "../../classes/game/constants";
 import EndGameModal from "../../components/EndGameModal";
 import { useNavigate } from "react-router-dom";
 import * as routeList from '../../utils/Routes'
-import { useFullscreenStatus } from '../../hooks';
+import { useFullscreenStatus, useAppDispatch, useAppSelector } from '../../hooks';
 import FullScreenButton from './components/FullScreenButton'
+import { setScore } from '../../redux/leaderboard/leaderboard.actions'
+import { selectProfile } from "../../redux/user/user.slice";
 
 const GameApp: React.FC = () => {
     const fullScreenRef:React.RefObject<HTMLElement> = useRef(null)
     const [isFullscreen, changeFullScreenMode] = useFullscreenStatus(fullScreenRef);
     const [game, setGame] = useState(new Game)
     const canvasRef = useRef(null)
-    const [score, setScore] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const navigate = useNavigate()
+    const profile = useAppSelector(selectProfile);
+    const dispatch = useAppDispatch();
+    
+    const setUserScore = (score: number) => {
+        const { id, login } = profile;
+        dispatch(setScore({
+            id: String(id), login, score
+        }))
+    }
     const startGame = () => {
         setGame(new Game)
-        setScore(0)
         setIsModalOpen(false)
     }
     const update = () => {
@@ -27,11 +36,14 @@ const GameApp: React.FC = () => {
         const isCollideWithCoin = game.isCollideWithCoin()
         if (isCollideWithCoin) {
             game.coins--
-            if (game.coins === 0) end()
-            //     setScore(isCollideWithCoin)
+            if (game.coins === 0) {
+                end()
+                setUserScore(game.getScore())
+            } 
         }
         if (game.isCollideWithGhost()) {
             end()
+            setUserScore(game.getScore())
         }
     }
 

@@ -31,10 +31,15 @@ const App: React.FC = () => {
   React.useEffect(() => {
     startServiceWorker();
   }, [])
+
   return (
     <Routes>
       <Route path={routeList.MAIN_ROUTE} element={<DefaultLayout />}>
-        <Route index element={<Home />} />
+        <Route index element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
         <Route path={routeList.SIGNIN_ROUTE} element={<Signin />} />
         <Route path={routeList.SIGNUP_ROUTE} element={<Signup />} />
         <Route path={routeList.ABOUT_ROUTE} element={<Landing />} />

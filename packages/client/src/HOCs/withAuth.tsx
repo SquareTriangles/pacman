@@ -1,8 +1,12 @@
 import React from "react"
 import { useAppSelector } from '../hooks'
 
-function withAuth(Component: React.FC) {
-  const showingComponent:React.FC = ({...props}) => {
+type TwithAuthProps = {
+  [key: string]: any,
+}
+
+function withAuth<P extends TwithAuthProps>(Component: React.FC<P>) {
+  const showingComponent:React.FC<P> = ({...props}) => {
     const { isAuth } = useAppSelector(state => state.user)
     if (!isAuth) {
       return <React.Fragment></React.Fragment>
