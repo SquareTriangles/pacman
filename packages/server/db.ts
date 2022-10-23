@@ -1,6 +1,14 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT } =
-  process.env
+import { userModel } from './models/user';
+import { topicModel } from './models/topic';
+import { commentModel } from './models/comment';
+const { 
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+  POSTGRES_DB,
+  POSTGRES_HOST,
+  POSTGRES_PORT,
+} =  process.env;
 
 
 const sequelizeOptions: SequelizeOptions = {
@@ -14,10 +22,29 @@ const sequelizeOptions: SequelizeOptions = {
 
 export const sequelize = new Sequelize(sequelizeOptions); 
 
+export const UserTable = sequelize.define('User', userModel, { timestamps: true, tableName: 'User' });
+export const TopicTable = sequelize.define('Topic', topicModel, { timestamps: true, tableName: 'Topic' });
+export const CommentTable = sequelize.define('Comment', commentModel, { timestamps: true, tableName: 'Comment' });
+
+const syncTables = async () => {
+  await UserTable.sync({ force: true }); 
+  await TopicTable.sync({ force: true }); 
+  await CommentTable.sync({ force: true });
+}
+
+const connectTables = () => {
+  TopicTable.hasOne(UserTable);
+  UserTable.belongsTo(TopicTable); 
+  CommentTable.hasOne(UserTable); 
+  UserTable.belongsTo(CommentTable);
+}
+
+
 export async function dbConnect() {
     try {
         await sequelize.authenticate() 
-        await sequelize.sync(); 
+        await syncTables()
+        connectTables()
         console.log('Connection has been established successfully.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
