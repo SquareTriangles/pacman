@@ -9,18 +9,13 @@ export const createUser = async (data: TCreateUserData) =>  UserTable.create(dat
 
 export const createUserController = async (req: Request, res: Response, next: NextFunction) => {
 
-  
+
   const {
     firstName, lastName, avatar, email, login,
   } = req.body;
-  console.log('!!@@@!!', req.body)
   createUser({ firstName, lastName, avatar, email, login, })
     .then((data) => {
       res.send(data)
     })
-    .catch((err) => {
-      console.log('=======')
-      console.log(err)
-      next(err)
-    })
+    .catch(next)
 }
