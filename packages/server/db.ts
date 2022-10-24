@@ -33,10 +33,11 @@ const syncTables = async () => {
 }
 
 const connectTables = () => {
-  TopicTable.hasOne(UserTable);
-  UserTable.belongsTo(TopicTable); 
-  CommentTable.hasOne(UserTable); 
-  UserTable.belongsTo(CommentTable);
+  UserTable.hasOne(TopicTable);
+  // UserTable.belongsTo(TopicTable); 
+  UserTable.hasOne(CommentTable); 
+  
+  // UserTable.belongsTo(CommentTable);
 }
 
 

@@ -8,10 +8,11 @@ export interface ITopic {
   owner: string,
 }
 
-
 export const topicModel: ModelAttributes<Model, ITopic> = {
     id: {
       type: DataType.UUID,
+      defaultValue: DataType.UUIDV4,
+      allowNull: false,
       primaryKey: true
     },
     header: {
