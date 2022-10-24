@@ -6,6 +6,8 @@ export interface IUser {
     firstName: string;
     lastName: string;
     avatar: string,
+    login: string,
+    email: string,
 }
 
 export const userModel: ModelAttributes<Model, IUser> = {
@@ -20,6 +22,14 @@ export const userModel: ModelAttributes<Model, IUser> = {
     lastName: {
         type: DataType.TEXT,
         allowNull: false
+    },
+    login: {
+      type: DataType.TEXT,
+      allowNull: false,
+    },
+    email: {
+      type: DataType.TEXT,
+      allowNull: false,
     },
     avatar: {
       type: DataType.TEXT,
