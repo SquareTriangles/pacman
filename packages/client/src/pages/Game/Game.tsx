@@ -1,111 +1,104 @@
-import { Typography, Box } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import Game from "../../classes/game/Game";
-import Packman from "../../classes/game/Packman";
-import { CELL_SIDE } from "../../classes/game/constants";
-import EndGameModal from "../../components/EndGameModal";
-import { useNavigate } from "react-router-dom";
-import * as routeList from '../../utils/Routes'
-import { useFullscreenStatus, useAppDispatch, useAppSelector } from '../../hooks';
-import FullScreenButton from './components/FullScreenButton'
-import { setScore } from '../../redux/leaderboard/leaderboard.actions'
-import { selectProfile } from "../../redux/user/user.slice";
+import Field from "./Field"
+import { CELL, CELL_SIDE, FIELD_TEMPLATE } from "./constants"
+import Packman from "./Packman"
+import Enemy from "./Enemy"
 
-const GameApp: React.FC = () => {
-    const fullScreenRef:React.RefObject<HTMLElement> = useRef(null)
-    const [isFullscreen, changeFullScreenMode] = useFullscreenStatus(fullScreenRef);
-    const [game, setGame] = useState(new Game)
-    const canvasRef = useRef(null)
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const navigate = useNavigate()
-    const profile = useAppSelector(selectProfile);
-    const dispatch = useAppDispatch();
-    
-    const setUserScore = (score: number) => {
-        const { id, login } = profile;
-        dispatch(setScore({
-            id: String(id), login, score
-        }))
+
+//const EatCoin = new Audio() || null
+//EatCoin.src = './src/assets/audio/eat_coin_sound.mp3'
+
+class Game{
+    field: Field
+    packman: Packman
+    score: number
+    coins: number
+    enemies: Enemy[]
+    enemyScared: boolean
+    constructor(){
+        this.field = new Field(FIELD_TEMPLATE)
+        this.score = 0
+        this.packman = new Packman(1, 10)
+        this.enemies = []
+        this.setEnemy()
+        this.coins = this.field.maxCoin
+        this.enemyScared = false
+        addEventListener('keydown', this.handleKeyDown)        
     }
-    const startGame = () => {
-        setGame(new Game)
-        setIsModalOpen(false)
+    private setEnemy(){
+        this.enemies.push(new Enemy(13, 2))
+        this.enemies.push(new Enemy(8, 8))
     }
-    const update = () => {
-        game.update()
-        const isCollideWithCoin = game.isCollideWithCoin()
-        if (isCollideWithCoin) {
-            game.coins--
-            if (game.coins === 0) {
-                end()
-                setUserScore(game.getScore())
-            } 
+    public handleKeyDown = (e: KeyboardEvent) => {
+        const { key } = e
+        if(key === 'w'){
+            this.packman.move(0, -1, this.field.fieldMap)
         }
-        if (game.isCollideWithGhost()) {
-            end()
-            setUserScore(game.getScore())
+        if(key === 's'){
+            this.packman.move(0, 1, this.field.fieldMap)
+        }
+        if(key === 'a'){
+            this.packman.move(-1, 0, this.field.fieldMap)
+        }
+        if(key === 'd'){
+            this.packman.move(1, 0, this.field.fieldMap)
         }
     }
 
-    const render = () => {
-        if (canvasRef && canvasRef.current) {
-            const canvasEl = canvasRef.current as HTMLCanvasElement
-            const ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
-            ctx.clearRect(0, 0, 300, 300)
-            game.field.render(ctx)
-            game.packman.render(ctx)
-            game.enemies.forEach(enemy => {
-                enemy.render(ctx)
-            })
+    public update(){
+        this.enemies.forEach(enemy => {
+            enemy.update()
+        })
+        this.packman.update()
+    }
+    public getScore(){
+        return this.score
+    }
+    public isCollideWithCoin(): void | number{
+        const positionX = this.packman.x/CELL_SIDE
+        const positionY = this.packman.y/CELL_SIDE
+        if(Number.isInteger(positionX) && Number.isInteger(positionY)){
+
+            if(this.field.fieldMap[positionY][positionX] === 1){
+    //            EatCoin.play()
+                this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0
+                this.score += 10
+                return this.score
+            }
         }
     }
-    const end = () => {
-        game.end()
-        setIsModalOpen(true)
-    }
-    const closeGame = () => {
-        navigate(routeList.MAIN_ROUTE)
-    }
-    const animate = () => {
-        update()
-        render()
-        requestAnimationFrame(animate)
-    }
-    useEffect(() => {
-        if (canvasRef && canvasRef.current) {
-            const canvasEl = canvasRef.current as HTMLCanvasElement
-            const ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
-            animate()
-        }
-}, [])
+    public isCollideWithPowerball(): void | boolean{
+        const positionX = this.packman.x/CELL_SIDE
+        const positionY = this.packman.y/CELL_SIDE
+        if(Number.isInteger(positionX) && Number.isInteger(positionY)){
 
-    return (
-        <>
-            <Box 
-                ref={fullScreenRef}
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'column'
-            }}>
-                <Typography variant='h3'>Packman</Typography>
+            if(this.field.fieldMap[positionY][positionX] === CELL.POWERBALL){
+                this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0              
+                return true
+            }
+        }  
+    }
+    public isCollideWithGhost(){
+        let isCollide = false
+        this.enemies.forEach(enemy => {
+            const centerX = enemy.x + CELL_SIDE / 2
+            const centerY = enemy.y + CELL_SIDE / 2
 
-                <canvas ref={canvasRef} width={300} height={300}></canvas>
-                {
-                    isFullscreen !== null
-                        ? <FullScreenButton onClick={changeFullScreenMode} isActive={isFullscreen} />
-                        : </>
-                }
-                <EndGameModal
-                    isOpen={isModalOpen}
-                    newGameAction={startGame}
-                    endGameAction={closeGame}
-                ></EndGameModal>
-            </Box>
-
-        </>
-    )
+            if(centerX > this.packman.x
+                && centerX < this.packman.x + CELL_SIDE
+                && centerY > this.packman.y
+                && centerY < this.packman.y + CELL_SIDE
+            ){
+                isCollide = true
+            }
+        })
+        return isCollide
+    }
+    public end(){
+        removeEventListener('keydown', this.handleKeyDown)
+        this.enemies.forEach(enemy => {
+            enemy.stop()
+        })
+    }
 }
 
-export default GameApp
+export default Game

@@ -1,14 +1,18 @@
 import Field from "./Field"
-import { CELL_SIDE, FIELD_TEMPLATE } from "./constants"
+import { CELL, CELL_SIDE, FIELD_TEMPLATE } from "./constants"
 import Packman from "./Packman"
 import Enemy from "./Enemy"
+
+const EatCoin = new Audio()
+EatCoin.src = './src/assets/audio/eat_coin_sound.mp3'
 
 class Game{
     field: Field
     packman: Packman
     score: number
     coins: number
-    enemies: Enemy[] 
+    enemies: Enemy[]
+    enemyScared: boolean
     constructor(){
         this.field = new Field(FIELD_TEMPLATE)
         this.score = 0
@@ -16,6 +20,7 @@ class Game{
         this.enemies = []
         this.setEnemy()
         this.coins = this.field.maxCoin
+        this.enemyScared = false
         addEventListener('keydown', this.handleKeyDown)        
     }
     private setEnemy(){
@@ -51,13 +56,25 @@ class Game{
         const positionX = this.packman.x/CELL_SIDE
         const positionY = this.packman.y/CELL_SIDE
         if(Number.isInteger(positionX) && Number.isInteger(positionY)){
-            
+
             if(this.field.fieldMap[positionY][positionX] === 1){
+                EatCoin.play()
                 this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0
                 this.score += 10
                 return this.score
             }
         }
+    }
+    public isCollideWithPowerball(){
+        const positionX = this.packman.x/CELL_SIDE
+        const positionY = this.packman.y/CELL_SIDE
+        if(Number.isInteger(positionX) && Number.isInteger(positionY)){
+
+            if(this.field.fieldMap[positionY][positionX] === CELL.POWERBALL){
+                this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0              
+                return true
+            }
+        }  
     }
     public isCollideWithGhost(){
         let isCollide = false
