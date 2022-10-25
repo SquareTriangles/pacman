@@ -2,6 +2,7 @@
   width: fit-content !important;
   margin: 0 auto;
   overflow-x: visible !important;
+  min-width: 25vw;
 }
 
 .table {

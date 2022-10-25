@@ -10,23 +10,49 @@ import NotFound from './pages/NotFound'
 import Landing from './pages/Landing'
 import Forum from './pages/Forum'
 import GameApp from './pages/Game'
-
 import * as routeList from './utils/Routes';
-
 import './App.css'
 import 'normalize.css'
+import startServiceWorker from './serviceWorker';
+import { getProfile } from './redux/user/user.actions'
+import { useAppDispatch } from './hooks'
 
 
 const App: React.FC = () => {
+
+  const dispatch = useAppDispatch();
+
+  const isCookeisValid = () => {
+    dispatch(getProfile());
+  }
+
+  isCookeisValid();
+
+  React.useEffect(() => {
+    startServiceWorker();
+  }, [])
+
   return (
     <Routes>
       <Route path={routeList.MAIN_ROUTE} element={<DefaultLayout />}>
-        <Route index element={<Home />} />
-        <Route path={routeList.PROFILE_ROUTE} element={<Profile />} />
+        <Route index element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
         <Route path={routeList.SIGNIN_ROUTE} element={<Signin />} />
         <Route path={routeList.SIGNUP_ROUTE} element={<Signup />} />
         <Route path={routeList.ABOUT_ROUTE} element={<Landing />} />
-        <Route path={routeList.GAME_ROUTE} element={<GameApp />} />
+        <Route path={routeList.PROFILE_ROUTE} element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path={routeList.GAME_ROUTE} element={
+          <ProtectedRoute>
+            <GameApp />
+          </ProtectedRoute>
+        } />
         <Route
           path={routeList.FORUM_ROUTE}
           element={

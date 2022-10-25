@@ -1,7 +1,11 @@
 import React from "react"
 import { useAppSelector } from '../hooks'
 
-function withAuth<P>(Component: React.FC<P>) {
+type TwithAuthProps = {
+  [key: string]: any,
+}
+
+function withAuth<P extends TwithAuthProps>(Component: React.FC<P>) {
   const showingComponent:React.FC<P> = ({...props}) => {
     const { isAuth } = useAppSelector(state => state.user)
     if (!isAuth) {

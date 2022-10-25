@@ -99,7 +99,12 @@ const SignupForm: React.FC = () => {
         <Controller
           defaultValue=""
           name="login"
-          rules={{ pattern: /[A-Za-z0-9]{5}/, required: true }}
+          rules={{ 
+            min: 3,
+            max: 20,
+            pattern:/^[A-ZА-Яa-zа-я_-\d]+$/,
+            required: true 
+          }}
           control={control}
           render={({ field }) =>
             <TextField
@@ -113,7 +118,12 @@ const SignupForm: React.FC = () => {
         <Controller
           defaultValue=""
           name="password"
-          rules={{ required: true }}
+          rules={{
+            min: 8,
+            max: 40,
+            pattern: /^(?=.*[0-9])(?=.*[A-ZА-Я])/,
+            required: true 
+          }}
           control={control}
           render={({ field }) =>
             <TextField

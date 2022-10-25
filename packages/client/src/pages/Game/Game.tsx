@@ -1,87 +1,104 @@
-import { Box } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import GameScore from "../../components/GameScore/GameScore";
-import EndGameModal from "../../components/EndGameModal";
-import { useNavigate } from "react-router-dom";
-import Game from "../../classes/game/Game";
+import Field from "./Field"
+import { CELL, CELL_SIDE, FIELD_TEMPLATE } from "./constants"
+import Packman from "./Packman"
+import Enemy from "./Enemy"
 
-const GameApp: React.FC = () => {
-    const [game, setGame] = useState(new Game)
-    const canvasRef = useRef(null)
-    const [score, setScore] = useState(0)
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const navigate = useNavigate()
-    const startGame = () => {
-        setGame(new Game)
-        setScore(0)
-        setIsModalOpen(false)
+
+//const EatCoin = new Audio() || null
+//EatCoin.src = './src/assets/audio/eat_coin_sound.mp3'
+
+class Game{
+    field: Field
+    packman: Packman
+    score: number
+    coins: number
+    enemies: Enemy[]
+    enemyScared: boolean
+    constructor(){
+        this.field = new Field(FIELD_TEMPLATE)
+        this.score = 0
+        this.packman = new Packman(1, 10)
+        this.enemies = []
+        this.setEnemy()
+        this.coins = this.field.maxCoin
+        this.enemyScared = false
+        addEventListener('keydown', this.handleKeyDown)        
     }
-    const update = () => {
-        game.update()
-        const isCollideWithCoin = game.isCollideWithCoin()
-        if (isCollideWithCoin) {
-            setScore(score => score + 10)
-            game.coins--
-            if (game.coins === 0) end()
+    private setEnemy(){
+        this.enemies.push(new Enemy(13, 2))
+        this.enemies.push(new Enemy(8, 8))
+    }
+    public handleKeyDown = (e: KeyboardEvent) => {
+        const { key } = e
+        if(key === 'w'){
+            this.packman.move(0, -1, this.field.fieldMap)
         }
-        if (game.isCollideWithGhost()) {
-            end()
+        if(key === 's'){
+            this.packman.move(0, 1, this.field.fieldMap)
+        }
+        if(key === 'a'){
+            this.packman.move(-1, 0, this.field.fieldMap)
+        }
+        if(key === 'd'){
+            this.packman.move(1, 0, this.field.fieldMap)
         }
     }
 
-    const render = () => {
-        if (canvasRef && canvasRef.current) {
-            const canvasEl = canvasRef.current as HTMLCanvasElement
-            const ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
-            ctx.clearRect(0, 0, 300, 300)
-            game.field.render(ctx)
-            game.packman.render(ctx)
-            game.enemies.forEach(enemy => {
-                enemy.render(ctx)
-            })
+    public update(){
+        this.enemies.forEach(enemy => {
+            enemy.update()
+        })
+        this.packman.update()
+    }
+    public getScore(){
+        return this.score
+    }
+    public isCollideWithCoin(): void | number{
+        const positionX = this.packman.x/CELL_SIDE
+        const positionY = this.packman.y/CELL_SIDE
+        if(Number.isInteger(positionX) && Number.isInteger(positionY)){
+
+            if(this.field.fieldMap[positionY][positionX] === 1){
+    //            EatCoin.play()
+                this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0
+                this.score += 10
+                return this.score
+            }
         }
     }
-    const end = () => {
-        game.end()
-        setIsModalOpen(true)
+    public isCollideWithPowerball(): void | boolean{
+        const positionX = this.packman.x/CELL_SIDE
+        const positionY = this.packman.y/CELL_SIDE
+        if(Number.isInteger(positionX) && Number.isInteger(positionY)){
+
+            if(this.field.fieldMap[positionY][positionX] === CELL.POWERBALL){
+                this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0              
+                return true
+            }
+        }  
     }
-    const closeGame = () => {
-        navigate('/')
+    public isCollideWithGhost(){
+        let isCollide = false
+        this.enemies.forEach(enemy => {
+            const centerX = enemy.x + CELL_SIDE / 2
+            const centerY = enemy.y + CELL_SIDE / 2
+
+            if(centerX > this.packman.x
+                && centerX < this.packman.x + CELL_SIDE
+                && centerY > this.packman.y
+                && centerY < this.packman.y + CELL_SIDE
+            ){
+                isCollide = true
+            }
+        })
+        return isCollide
     }
-    const animate = () => {
-        update()
-        render()
-        requestAnimationFrame(animate)
+    public end(){
+        removeEventListener('keydown', this.handleKeyDown)
+        this.enemies.forEach(enemy => {
+            enemy.stop()
+        })
     }
-    useEffect(() => {
-        if (canvasRef && canvasRef.current) {
-            const canvasEl = canvasRef.current as HTMLCanvasElement
-            const ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
-            animate()
-        }
-
-    }, [game])
-
-    return (
-        <>
-            <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column'
-            }}>
-                <GameScore score={score}></GameScore>
-                <canvas ref={canvasRef} width={300} height={300}></canvas>
-                <EndGameModal
-                    isOpen={isModalOpen}
-                    newGameAction={startGame}
-                    endGameAction={closeGame}
-                ></EndGameModal>
-            </Box>
-
-        </>
-
-    )
 }
 
-export default GameApp
+export default Game
