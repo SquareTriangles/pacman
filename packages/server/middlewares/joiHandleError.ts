@@ -4,6 +4,7 @@ import { AbstractError, DataRequestError } from '../errors';
 
 const joiHandleError = (err: AbstractError | Error, req: Request, res: Response, next: NextFunction) => {
   if (!isCelebrateError(err)) {
+    console.log('ERROR == ', err)
     return next(err);
   }
   const {

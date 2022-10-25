@@ -5,7 +5,7 @@ import express from 'express'
 
 import { dbConnect } from './db'
 import initRoutes from './routes'
-import { handleErrorMiddleware, joiHandleError } from './middlewares';
+import { handleErrorMiddleware, joiHandleError, consoleLogger } from './middlewares';
 
 dotenv.config()
 
@@ -18,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.disable('x-powered-by');
+
+app.use(consoleLogger)
 
 dbConnect()
 

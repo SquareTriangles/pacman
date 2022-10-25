@@ -7,7 +7,7 @@ const handleError = (err: AbstractError | Error, req: Request, res: Response, ne
   if ('statusCode' in err) {
     statusCode = err.statusCode;
   }
-  console.log(err);
+  console.log('ERROR ', err)
   res.status(statusCode).send({ message: statusCode === 500 ? ERROR_MESSAGE.SERVER_ERROR_MESSAGE : message });
   next();
 }

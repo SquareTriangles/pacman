@@ -2,11 +2,14 @@ import { celebrate, Joi } from 'celebrate'
 import { 
   createUserController,
   updateUserController,
+  getAllUsersController,
 } from '../controlers/user'
 import router from 'express';
 import * as JoiRules from './JoiRules';
 
 const Router = router.Router()
+
+Router.get('/', getAllUsersController);
 
 Router.post('/', celebrate({
   body: Joi.object().keys({

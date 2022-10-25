@@ -23,7 +23,7 @@ export const commentModel: ModelAttributes<Model, IComment> = {
       type: DataType.UUID,
       references: 
       { 
-        model: 'User', 
+        model: 'Topic', 
         key: 'id',
       }
     },
