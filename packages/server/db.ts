@@ -27,9 +27,9 @@ export const TopicTable = sequelize.define('Topic', topicModel, { timestamps: tr
 export const CommentTable = sequelize.define('Comment', commentModel, { timestamps: true, tableName: 'Comment' });
 
 const syncTables = async () => {
-  await UserTable.sync({ force: false }); 
-  await TopicTable.sync({ force: false }); 
-  await CommentTable.sync({ force: false });
+  await UserTable.sync({ force: true }); 
+  await TopicTable.sync({ force: true }); 
+  await CommentTable.sync({ force: true });
 }
 
 const connectTables = () => {

@@ -23,7 +23,7 @@ Router.get('/id', celebrate({
   }),
 }), getTopicByIdController);
 
-Router.post('', celebrate({
+Router.post('/', celebrate({
   body: Joi.object().keys({
     header: JoiRules.FirstNameRule,
     body: JoiRules.TopicBodyRule,
@@ -31,7 +31,7 @@ Router.post('', celebrate({
   })
 }), createTopicController);
 
-Router.put('', celebrate({
+Router.put('/', celebrate({
   body: Joi.object().keys({
     id: JoiRules.idRule,
     header: JoiRules.FirstNameRule,
