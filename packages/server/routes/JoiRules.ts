@@ -10,3 +10,4 @@ export const LoginRule              = Joi.string().min(5).max(32).required().mes
 export const TopicBodyRule          = Joi.string().required().messages(stringErrorMessageBuilder('body'));
 export const TopicHeaderRule        = Joi.string().required().messages(stringErrorMessageBuilder('header'));
 export const QuestionCommentIdRule  = idRule.allow(null)
+export const ThemeRule              = Joi.string()

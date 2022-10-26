@@ -8,6 +8,7 @@ export interface IUser {
     avatar: string,
     login: string,
     email: string,
+    theme: string,
 }
 
 export const userModel: ModelAttributes<Model, IUser> = {
@@ -37,5 +38,10 @@ export const userModel: ModelAttributes<Model, IUser> = {
     },
     avatar: {
       type: DataType.TEXT,
-    }
+    },
+    theme: {
+      type: DataType.TEXT,
+      allowNull: false,
+      defaultValue: '#fccf00'
+    },
   };
