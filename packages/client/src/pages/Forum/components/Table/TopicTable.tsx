@@ -6,7 +6,7 @@ import { TopicTableRow } from '../TableRow/TableRow'
 import styles from './styles.module.css'
 
 type TrowData = {
-  _id: number
+  id: string
   userName: string
   header: string
   replyNumber: number
@@ -15,7 +15,7 @@ type TrowData = {
 
 type TtopicTable = {
   data: TrowData[]
-  handleRowClick: (_id: number) => void
+  handleRowClick: (_id: string) => void
 }
 
 const TopicTable: React.FC<TtopicTable> = ({ data = [], handleRowClick }) => {
@@ -23,9 +23,9 @@ const TopicTable: React.FC<TtopicTable> = ({ data = [], handleRowClick }) => {
     <TableContainer>
       <Table className={`${styles.table} ${styles.table__type_topic}`}>
         <TableBody>
-          {data.map(({ _id, header, userName, replyNumber, color }, index) => {
+          {data.map(({ id, header, userName, replyNumber, color }, index) => {
             const handleClick = () => {
-              handleRowClick(_id)
+              handleRowClick(id)
             }
             return (
               <TopicTableRow

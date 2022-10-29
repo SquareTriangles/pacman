@@ -24,7 +24,7 @@ export const topicModel: ModelAttributes<Model, ITopic> = {
         allowNull: false
     },
     owner: {
-      type: DataType.UUID,
+      type: DataType.TEXT,
       allowNull: true,
     }
   };

@@ -27,7 +27,7 @@ Router.post('/', celebrate({
   body: Joi.object().keys({
     header: JoiRules.FirstNameRule,
     body: JoiRules.TopicBodyRule,
-    owner: JoiRules.TopicHeaderRule,
+    owner: JoiRules.userIdRule,
   })
 }), createTopicController);
 
@@ -36,7 +36,7 @@ Router.put('/', celebrate({
     id: JoiRules.idRule,
     header: JoiRules.FirstNameRule,
     body: JoiRules.TopicBodyRule,
-    owner: JoiRules.TopicHeaderRule,
+    owner: JoiRules.userIdRule,
   })
 }), updateTopicController);
 

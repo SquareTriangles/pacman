@@ -29,7 +29,7 @@ export const commentModel: ModelAttributes<Model, IComment> = {
       allowNull: true,
     },
     owner: {
-      type: DataType.UUID,
+      type: DataType.TEXT,
       allowNull: true,
     }
   };
