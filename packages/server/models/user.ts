@@ -13,6 +13,8 @@ export interface IUser {
 export const userModel: ModelAttributes<Model, IUser> = {
     id: {
       type: DataType.UUID,
+      defaultValue: DataType.UUIDV4,
+      allowNull: false,
       primaryKey: true
     },
     firstName: {
@@ -26,10 +28,12 @@ export const userModel: ModelAttributes<Model, IUser> = {
     login: {
       type: DataType.TEXT,
       allowNull: false,
+      unique: true,
     },
     email: {
       type: DataType.TEXT,
       allowNull: false,
+      unique: true,
     },
     avatar: {
       type: DataType.TEXT,
