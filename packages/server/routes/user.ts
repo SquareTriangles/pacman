@@ -3,6 +3,7 @@ import {
   createUserController,
   updateUserController,
   getAllUsersController,
+  updateUserThemeController,
 } from '../controlers/user'
 import router from 'express';
 import * as JoiRules from './JoiRules';
@@ -29,8 +30,16 @@ Router.put('/', celebrate({
     avatar: JoiRules.AvatarRule,
     email: JoiRules.EmailRule,
     login: JoiRules.LoginRule,
+    theme: JoiRules.ThemeRule.required()
   })
 }), updateUserController);
+
+Router.patch('/theme', celebrate({
+  body: Joi.object().keys({
+    id: JoiRules.idRule,
+    theme: JoiRules.ThemeRule.required()
+  })
+}), updateUserThemeController);
 
 export default Router;
 
