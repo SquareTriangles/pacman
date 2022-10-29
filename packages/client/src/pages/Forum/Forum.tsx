@@ -53,14 +53,14 @@ const mapStateToProps:TmapStateToProps = (state: RootState) => {
     return {
       id: topic.id,
       header: topic.header,
-      userName: topic.User.login,
+      userName: topic?.User?.login || 'unknown User',
       replyNumber: comments[topic.id]?.length ? comments[topic.id]?.length - 1 : 0,
       color: getRandomArrayitem(COLOR_LIST),
       body: topic.body,
       messageList: (comments[topic.id] || []).map((item) => ({
         user: {
-          name: item.User.login,
-          photo: item.User.avatar
+          name: item?.User?.login || '',
+          photo: item?.User?.avatar || ''
         },
         date: item.createdAt,
         body: item.body,

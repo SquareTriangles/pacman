@@ -26,7 +26,7 @@ export interface IForumUserApiModel {
   id: string,
   firstName: string,
   lastName: string,
-  avatar: string,
+  avatar: string | null,
   email: string,
   login: string,
 }
@@ -44,7 +44,7 @@ export interface IForumCommentApiModel {
 }
 
 export interface IForumCommentResponceDataApiModel extends IForumCommentApiModel, IForumDates {
-  User: Omit<IForumUserApiModel,'id'>
+  User: Omit<IForumUserApiModel,'id'> | null
 }
 
 export interface IForumTopicApiModel {
@@ -55,5 +55,5 @@ export interface IForumTopicApiModel {
 
 export interface IForumTopicResponceDataApiModel extends IForumTopicApiModel, IForumDates {
   id: string,
-  User: Omit<IForumUserApiModel,'id'>
+  User: Omit<IForumUserApiModel,'id'> | null
 }
