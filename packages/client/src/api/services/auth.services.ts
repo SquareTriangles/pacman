@@ -1,5 +1,5 @@
 import { api, ApiResponse } from '../api'
-import { ISigninModel, ISignupModel } from '../../models/auth.model'
+import { ISigninModel, ISignupModel, ISignupResponceModel } from '../../models/auth.model'
 
 const AuthService = {
   signin(data: ISigninModel): Promise<ApiResponse> {
@@ -8,7 +8,7 @@ const AuthService = {
   logout(): Promise<ApiResponse> {
     return api.post('/auth/logout', {})
   },
-  signup(data: ISignupModel): Promise<ApiResponse> {
+  signup(data: ISignupModel): Promise<ApiResponse<ISignupResponceModel>> {
     return api.post('/auth/signup', data)
   },  
 }
