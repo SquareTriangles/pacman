@@ -1,4 +1,4 @@
-import AbstractError from "./Abstracterror";
+import AbstractError from "./AbstractError";
 
 class ForbiddenError extends AbstractError {
   constructor(message: string) {

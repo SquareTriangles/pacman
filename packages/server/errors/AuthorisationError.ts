@@ -1,4 +1,4 @@
-import AbstractError from "./Abstracterror";
+import AbstractError from "./AbstractError";
 class AuthorisationError extends AbstractError {
   constructor(message: string) {
     super(message, 401);

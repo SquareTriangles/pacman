@@ -1,4 +1,4 @@
-import AbstractError from './Abstracterror'
+import AbstractError from './AbstractError'
 import AuthorisationError from "./AuthorisationError";
 import ConflictError from "./ConflictError";
 import DataRequestError from "./DataRequestError";

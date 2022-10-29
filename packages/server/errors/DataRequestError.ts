@@ -1,4 +1,4 @@
-import AbstractError from "./Abstracterror";
+import AbstractError from "./AbstractError";
 
 class DataRequestError extends AbstractError {
   constructor(message: string) {
