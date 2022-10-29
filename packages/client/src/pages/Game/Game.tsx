@@ -1,7 +1,7 @@
-import Field from "./Field"
-import { CELL, CELL_SIDE, FIELD_TEMPLATE } from "./constants"
-import Packman from "./Packman"
-import Enemy from "./Enemy"
+import Field from "../../classes/game/Field"
+import { CELL, CELL_SIDE, FIELD_TEMPLATE } from "../../classes/game/constants"
+import Packman from "../../classes/game/Packman"
+import Enemy from "../../classes/game/Enemy"
 
 
 //const EatCoin = new Audio() || null
