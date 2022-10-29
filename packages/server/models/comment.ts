@@ -26,18 +26,10 @@ export const commentModel: ModelAttributes<Model, IComment> = {
     },
     topic: {
       type: DataType.UUID,
-      references: 
-      { 
-        model: 'Topic', 
-        key: 'id',
-      }
+      allowNull: true,
     },
     owner: {
       type: DataType.UUID,
-      references: 
-      { 
-        model: 'User', 
-        key: 'id',
-      }
+      allowNull: true,
     }
   };

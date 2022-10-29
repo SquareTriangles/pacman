@@ -25,10 +25,6 @@ export const topicModel: ModelAttributes<Model, ITopic> = {
     },
     owner: {
       type: DataType.UUID,
-      references: 
-      { 
-        model: 'User', 
-        key: 'id',
-      }
+      allowNull: true,
     }
   };

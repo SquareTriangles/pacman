@@ -33,9 +33,15 @@ const syncTables = async () => {
 }
 
 const connectTables = () => {
-  TopicTable.hasOne(UserTable, { as: 'owner_', foreignKey:'id' })
-  CommentTable.hasOne(UserTable, { as: 'owner_', foreignKey:'id' })
-  CommentTable.hasOne(TopicTable, { as: 'topic_', foreignKey:'id' })
+  UserTable.hasMany(TopicTable, { foreignKey: 'owner' })
+  TopicTable.belongsTo(UserTable, { foreignKey: 'owner' })
+
+  UserTable.hasMany(CommentTable, { foreignKey: 'owner' })
+  CommentTable.belongsTo(UserTable, { foreignKey: 'owner' })
+
+  TopicTable.hasMany(CommentTable, { foreignKey: 'topic' })
+  CommentTable.belongsTo(TopicTable, { foreignKey: 'topic' })
+
 }
 
 
