@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "composite": true,
     "target": "es2019",
     "module": "commonjs",
@@ -17,7 +18,6 @@
     "noUnusedParameters": false,
     "noUnusedLocals": false,
     "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
     "emitDecoratorMetadata": true, 
     "importsNotUsedAsValues": "error",
     "lib": ["es2019", "esnext.asynciterable"],
