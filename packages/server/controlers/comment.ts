@@ -1,15 +1,17 @@
 import type { Request, Response, NextFunction } from 'express';
-import { CommentTable } from '../db'
+import { CommentTable, UserTable } from '../db'
 import type { IComment } from '../models/comment';
 
 type TCreateCommentcData = Omit<IComment, 'id'>
 
-export const createComment = async (data: TCreateCommentcData) =>  CommentTable.create(data);
+export const createComment = async (data: TCreateCommentcData) =>  CommentTable.create(data, {
+  include: UserTable,
+});
 export const updateComment  = async (topicData: IComment) => CommentTable.update(topicData, { where: { id: topicData.id } })
 export const removeComment  = async (id: string) => CommentTable.destroy( { where: { id: id } })
-export const getAllComment  = async () => CommentTable.findAll({ order: [ ['updatedAt', 'DESC'] ] })
-export const getCommenByTopicId  = async (id: string) => CommentTable.findAll({ where: { topic: id }})
-export const getAnswerList = async (questionCommentId: string) => CommentTable.findAll({ where: { questionCommentId: questionCommentId }})
+export const getAllComment  = async () => CommentTable.findAll({ order: [ ['updatedAt', 'DESC'] ], include: [ UserTable ] })
+export const getCommenByTopicId  = async (id: string) => CommentTable.findAll({ where: { topic: id }, include: [ UserTable ]})
+export const getAnswerList = async (questionCommentId: string) => CommentTable.findAll({ where: { questionCommentId: questionCommentId },  include: [ UserTable ]})
 
 export const createCommentController = async (req: Request, res: Response, next: NextFunction) => {
   const {

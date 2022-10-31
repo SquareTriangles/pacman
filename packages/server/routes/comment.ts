@@ -34,7 +34,7 @@ Router.post('/', celebrate({
   body: Joi.object().keys({
     body: JoiRules.TopicBodyRule,
     topic: JoiRules.idRule,
-    owner: JoiRules.idRule,
+    owner: JoiRules.userIdRule,
     questionCommentId: JoiRules.QuestionCommentIdRule,
   })
 }), createCommentController);
@@ -44,7 +44,7 @@ Router.put('/', celebrate({
     id: JoiRules.idRule,
     body: JoiRules.TopicBodyRule,
     topic: JoiRules.idRule,
-    owner: JoiRules.idRule,
+    owner: JoiRules.userIdRule,
     questionCommentId: JoiRules.QuestionCommentIdRule,
   })
 }), updateCommentController);

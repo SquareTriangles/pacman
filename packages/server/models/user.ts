@@ -13,10 +13,11 @@ export interface IUser {
 
 export const userModel: ModelAttributes<Model, IUser> = {
     id: {
-      type: DataType.UUID,
+      type: DataType.TEXT,
       defaultValue: DataType.UUIDV4,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      unique: true,
     },
     firstName: {
       type: DataType.TEXT,

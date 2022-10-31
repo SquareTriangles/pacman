@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IforumTopicModel } from '../../models/forum.model'
+import { IforumTopicModel, IForumTopicResponceDataApiModel, IForumCommentResponceDataApiModel } from '../../models/forum.model'
 import * as actions from './forum.actions';
 
 
 export interface IforumState {
-  topicList: IforumTopicModel[]
+  topicList: IForumTopicResponceDataApiModel[],
+  comments: actions.TTopicData,
 }
 
 const initialState: IforumState = {
   topicList: [],
+  comments: {},
 }
 
 
@@ -16,7 +18,7 @@ export const forumSlice = createSlice({
   name: 'forum',
   initialState,
   reducers: {
-    setTopicList: (state, action: PayloadAction<IforumTopicModel[]>) => {
+    setTopicList: (state, action: PayloadAction<IForumTopicResponceDataApiModel[]>) => {
       state.topicList = [...state.topicList, ...action.payload]
     },
   },
@@ -24,24 +26,18 @@ export const forumSlice = createSlice({
     builder.addCase(actions.getTopicList.fulfilled, (state, action) => {
       state.topicList = action.payload
     })
+    builder.addCase(actions.getCommentList.fulfilled, (state, action) => {
+      state.comments = action.payload
+    })
     builder.addCase(actions.setTopic.fulfilled, (state, action) => {
       state.topicList.push(action.payload)
     })
     builder.addCase(actions.setMessage.fulfilled, (state, action) => {
-      const { topicId, message } = action.payload;
-      const updatedtopicList = state.topicList.map((topic) => {
-        if (topic._id === topicId) {
-          const messageList = topic.messageList;
-          messageList.push(message);
-          const updatedTopic = {
-            ...topic,
-            messageList,
-          };
-          return updatedTopic
-        }
-        return topic
-      })
-      state.topicList = updatedtopicList;
+      const { topic } = action.payload;
+      const comments = state.comments;
+      const topicComments = comments[topic] || [];
+      topicComments.push(action.payload);
+      state.comments[topic] = topicComments;
     })
   },
 })

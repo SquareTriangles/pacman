@@ -14,6 +14,7 @@ Router.get('/', getAllUsersController);
 
 Router.post('/', celebrate({
   body: Joi.object().keys({
+    id: JoiRules.userIdRule,
     firstName: JoiRules.FirstNameRule,
     lastName: JoiRules.LastNameRule,
     avatar: JoiRules.AvatarRule,
@@ -24,7 +25,7 @@ Router.post('/', celebrate({
 
 Router.put('/', celebrate({
   body: Joi.object().keys({
-    id: JoiRules.idRule,
+    id: JoiRules.userIdRule,
     firstName: JoiRules.FirstNameRule,
     lastName: JoiRules.LastNameRule,
     avatar: JoiRules.AvatarRule,

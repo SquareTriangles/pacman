@@ -9,10 +9,9 @@ import TopicForm, {
   TtopicformData,
 } from './components/Forms/TopicForm/TopicForm'
 import { RootState, AppDispatch } from '../../redux/store';
-import { IforumTopicModel } from '../../models/forum.model';
-import { forumSlice } from '../../redux/forum/forum.slice';
+import { IForumTopicApiModel, IForumCommentApiModel } from '../../models/forum.model';
+import { IUserModel } from '../../models/user.model'
 import { getTopicList, setTopic, setMessage } from '../../redux/forum/forum.actions';
-import pacmanImage from '../../assets/images/pacman.png'
 import styles from './styles.module.css'
 
 const COLOR_LIST = [
@@ -31,9 +30,9 @@ const getRandomArrayitem = (arr: Array<string>): string => {
 
 
 type TtopicItem = {
-  _id: number
-  header: string,
-  userName: string,
+  id: string
+  header: string
+  userName: string
   replyNumber: number
   color: string
   body: string
@@ -42,32 +41,45 @@ type TtopicItem = {
 
 type TmapStateToProps = (state: RootState) => ({
   topicList: TtopicItem[],
+  user: IUserModel,
 })
 
 const dateToString = (date:number) => String(date)
 
 const mapStateToProps:TmapStateToProps = (state: RootState) => {
+  const comments = state.forum.comments;
+  const user = state.user.profile;
   const data = state.forum.topicList.map((topic) => {
     return {
-      ...topic,
-      replyNumber: topic.messageList.length - 1,
+      id: topic.id,
+      header: topic.header,
+      userName: topic?.User?.login || 'unknown User',
+      replyNumber: comments[topic.id]?.length ? comments[topic.id]?.length - 1 : 0,
       color: getRandomArrayitem(COLOR_LIST),
-      userName: topic.owner.name,
-      messageList: topic.messageList.map((message) => ({ ...message, date: dateToString(message.date)}))
+      body: topic.body,
+      messageList: (comments[topic.id] || []).map((item) => ({
+        user: {
+          name: item?.User?.login || '',
+          photo: item?.User?.avatar || ''
+        },
+        date: item.createdAt,
+        body: item.body,
+      }))
     }
   })
   return ({
     topicList: data,
+    user,
 })};
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   getTopicList: () => {
     dispatch(getTopicList());
   },
-  setTopic: (data: Omit<IforumTopicModel, '_id'|'messageList'|'owner'>) => {
+  setTopic: (data: IForumTopicApiModel) => {
     dispatch(setTopic(data))
   },
-  setMessage: (data: { topicId: number, body: string }) => {
+  setMessage: (data: IForumCommentApiModel) => {
     dispatch(setMessage(data))
   }
 })
@@ -82,7 +94,7 @@ const SHOW_TOPIC_FORUM_BUTTON_TEXT = 'New topic'
 const GO_BACK_FORUM_BUTTON_TEXT = 'Go back'
 const FORM_HEDER = 'Отправьте свое обращение'
 
-const Forum: React.FC<TforumProps> = ({ topicList, getTopicList, setTopic, setMessage }) => {
+const Forum: React.FC<TforumProps> = ({ topicList, user, getTopicList, setTopic, setMessage }) => {
   const [selectedTopic, setSelectedTopic] = React.useState<TtopicItem | null>(
     null
   )
@@ -91,9 +103,8 @@ const Forum: React.FC<TforumProps> = ({ topicList, getTopicList, setTopic, setMe
   React.useEffect(() => {
     getTopicList();
   }, []);
-
   React.useEffect(() => {
-    const topic = topicList.find(topic => topic._id === selectedTopic?._id)
+    const topic = topicList.find(topic => topic.id === selectedTopic?.id)
     if (topic) {
       setSelectedTopic(topic)
     }
@@ -107,8 +118,8 @@ const Forum: React.FC<TforumProps> = ({ topicList, getTopicList, setTopic, setMe
     setIsShowTopicForm(false)
   }
 
-  const handleRowClick = (_id: number) => {
-    const topic = topicList.find(topic => topic._id === _id)
+  const handleRowClick = (_id: string) => {
+    const topic = topicList.find(topic => topic.id === _id)
     if (topic) {
       setSelectedTopic(topic)
     }
@@ -116,7 +127,7 @@ const Forum: React.FC<TforumProps> = ({ topicList, getTopicList, setTopic, setMe
 
   const addTopic = (data: TtopicformData) => {
     const { header, body } = data;
-    setTopic({ header, body });
+    setTopic({ header, body, owner: String(user.id) });
   }
 
   const handleSubmitTopicForm = (data: TtopicformData) => {
@@ -130,9 +141,9 @@ const Forum: React.FC<TforumProps> = ({ topicList, getTopicList, setTopic, setMe
   const addMessage = (data: TdiscussionformData) => {
     const { text } = data
         
-    const topic = topicList.find(topic => topic._id === selectedTopic?._id)
+    const topic = topicList.find(topic => topic.id === selectedTopic?.id)
     if (topic) {
-      setMessage({ topicId: topic._id, body: text })
+      setMessage({ topic: topic.id, questionCommentId: null, body: text, owner: String(user.id) })
     }
   }
   const goToTopic = () => {

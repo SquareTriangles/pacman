@@ -12,3 +12,8 @@ export interface ISignupModel {
   phone: string
 }
 
+export interface ISignupResponceModel extends ISignupModel {
+  id: string,
+  avatar: string,
+}
+

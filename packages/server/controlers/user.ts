@@ -3,7 +3,7 @@ import { UserTable } from '../db'
 import type { IUser } from '../models/user';
 
 
-type TCreateUserData = Omit<IUser, 'id' | 'theme'>;
+type TCreateUserData = Omit<IUser,'theme'>;
 type TUpdateUserTheme = Pick<IUser, 'id' | 'theme'>;
 
 export const createUser = async (data: TCreateUserData) =>  UserTable.create(data);
@@ -13,9 +13,9 @@ export const getAllUsers  = async () => UserTable.findAll({ order: [ ['updatedAt
 
 export const createUserController = async (req: Request, res: Response, next: NextFunction) => {
   const {
-    firstName, lastName, avatar, email, login,
+    id, firstName, lastName, avatar, email, login,
   } = req.body;
-  createUser({ firstName, lastName, avatar, email, login, })
+  createUser({ id, firstName, lastName, avatar, email, login, })
     .then((data) => {
       res.send(data)
     })

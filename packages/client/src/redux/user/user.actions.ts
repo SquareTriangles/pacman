@@ -8,12 +8,26 @@ import { IYandexSigninModel } from '../../models/yandexAuth.model';
 import AuthService from '../../api/services/auth.services'
 import UserService from '../../api/services/user.services'
 import YandexAuth  from '../../api/services/yandexAuth.services'
+import ForumService from '../../api/services/forum.service';
+
+const setUserDataInForum = async (userId: string) => {
+  const { data } = await UserService.getProfile()
+  ForumService.setUser({
+    id: String(data.id),
+    firstName: data.first_name,
+    lastName: data.second_name,
+    avatar: data.avatar,
+    email: data.email,
+    login: data.login,
+  })
+}
 
 export const signup = createAsyncThunk(
   'user/signup',
   async (payload: ISignupModel, thunkApi) => {
     try{
       const { data } = await AuthService.signup(payload)
+      setUserDataInForum(String(data.id))
       return data
     }catch(e: any){
       return thunkApi.rejectWithValue(e.response.data.reason)

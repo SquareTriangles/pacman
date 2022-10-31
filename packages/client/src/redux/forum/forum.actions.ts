@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { IforumTopicModel, IforumMessageModel } from '../../models/forum.model'
+import ForumService from '../../api/services/forum.service'
+import { IforumTopicModel, IforumMessageModel, IForumTopicApiModel, IForumCommentResponceDataApiModel, IForumCommentApiModel } from '../../models/forum.model'
+import { RootState } from '../store';
 import pacmanImage from '../../assets/images/pacman.png'
 
 const getRundomNumber = () => Math.ceil(Math.random() * 1000)
@@ -57,50 +59,74 @@ const tempTopicData = [
   },
 ]
 
+export type TTopicData = {
+  [key: string]: Array<IForumCommentResponceDataApiModel>
+}
 
 export const getTopicList = createAsyncThunk(
   'forum/getTopicList',
   async () => {
-    return tempTopicData
+    const { data } = await ForumService.getTopic();
+    console.log(data)
+    return data
+  }
+)
+
+export const getCommentList = createAsyncThunk(
+  'forum/getCommentList',
+  async () => {
+    const { data } = await ForumService.getCommentList();
+    
+    const res: TTopicData = data.reduce((res, item) => {
+      const topicId = item.topic;
+      if (res[topicId]) {
+        res[item.topic].push(item)
+      } else {
+        res[item.topic] = []
+      }
+      return res
+    }, {} as TTopicData)
+
+    return res;
   }
 )
 
 
 export const setTopic = createAsyncThunk(
   'forum/setTopic',
-  async (payload: Omit<IforumTopicModel, '_id'|'messageList'|'owner'>) => {
-    const { header, body, } = payload;
-
-    const user = {
-      name: 'spiderMan',
-      photo: pacmanImage,
-    }
-    const newTopic = {
-      _id: getRundomNumber(),
-      header,
-      body,
-      messageList: [{
-        body,
-        user,
-        date: getRundomNumber(),
-      }],
-      owner: user,
-    }
-    return newTopic
+  async (payload: IForumTopicApiModel, thunkApi) => {
+    const state = thunkApi.getState() as RootState;
+    const user = state.user.profile;
+    const { data } = await ForumService.setTopic(payload);
+    const topicData = {
+      ...data,
+      User: {
+        firstName: user.first_name,
+        lastName: user.second_name,
+        avatar: user.avatar,
+        email: user.email,
+        login: user.login,
+      }
+    };
+    return topicData
   }
 )
 
 export const setMessage = createAsyncThunk(
   'forum/setMessage',
-  async (payload: { topicId: number, body: string }) => {
-    const message:IforumMessageModel = {
-      body: payload.body,
-      date: getRundomNumber(),
-      user: {
-        name: 'shrek',
-        photo: pacmanImage,
-      },
-    };
-    return { topicId: payload.topicId, message }
+  async (payload: IForumCommentApiModel, thunkApi) => {
+    const state = thunkApi.getState() as RootState;
+    const user = state.user.profile;
+    const { data } = await ForumService.setComment(payload)
+    return {
+      ...data,
+      User: {
+        firstName: user.first_name,
+        lastName: user.second_name,
+        avatar: user.avatar,
+        email: user.email,
+        login: user.login,
+      }
+    }
   }
 );
