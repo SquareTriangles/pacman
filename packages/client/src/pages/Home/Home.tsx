@@ -13,11 +13,11 @@ const MAIN_BUTTON_TEXT = 'PLAY';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const leaderboardList = useAppSelector(selectLeaderboardUserList) || [];
+  // const leaderboardList = useAppSelector(selectLeaderboardUserList) || [];
 
   useEffect(() => {
     dispatch(getTeamLeaderboard({cursor: 0, limit: 10 }));
-  }, [leaderboardList])
+  }, [])
   return (
     <Box>
       <Grid container>
