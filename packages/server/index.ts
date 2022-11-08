@@ -1,7 +1,8 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
-import helmet from 'helmet';
+import helmet from 'helmet'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 
 import { dbConnect } from './db'
 import initRoutes from './routes'
@@ -13,14 +14,17 @@ const port = Number(process.env.SERVER_PORT) || 3001
 
 const app = express()
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200 
-}
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
 
 app.use(consoleLogger)
 
-app.use(cors(corsOptions))
+app.use(cors(corsConfig))
+app.options('*', cors(corsConfig));
+
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());

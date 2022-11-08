@@ -40,6 +40,7 @@ export const signin = createAsyncThunk(
   async (payload: ISigninModel, thunkApi) => {
     try{
       const { data } = await AuthService.signin(payload)
+      document.cookie = `user=${JSON.stringify(payload)}`;
       return data
     }catch(e: any){
       return thunkApi.rejectWithValue(e.response.data.reason)
@@ -49,11 +50,17 @@ export const signin = createAsyncThunk(
 
 export const logout = createAsyncThunk('user/logout', async () => {
   const { data } = await AuthService.logout()
+  document.cookie = 'user= ; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
   return data
 })
 
 export const getProfile = createAsyncThunk('user/getProfile', async () => {
   const { data } = await UserService.getProfile()
+  if (data.login) {
+    document.cookie = `user=${JSON.stringify(data)}; path=/`;
+  } else {
+    document.cookie = 'user= ; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }
   return data
 })
 
