@@ -8,18 +8,17 @@ services:
       - ./postgresdata:/var/lib/postgresql/data
       - ./src/migrations/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
     restart: always
-    environment:
-      env_file:
-          ./.env.dev 
+    env_file:
+        ./.env.dev 
     networks:
       - awesome
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:4.18
     restart: always
-    environment:
-      env_file:
-          ./.env.dev 
+
+    env_file:
+        ./.env.dev 
     ports:
       - "8080:80"
     volumes:

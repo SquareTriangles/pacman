@@ -189,7 +189,7 @@ const HeaderProfile: React.FC<TheaderProfileProps> = ({ anchorElUser, handleOpen
   const { avatar } = useAppSelector(state => state.user.profile)
   return (<Box sx={{ flexGrow: 0 }}>
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="Remy Sharp" src={avatar} />
+            <Avatar alt="Remy Sharp" src={`https://ya-praktikum.tech${avatar}`} />
           </IconButton>
           <Menu
             sx={{ mt: '45px' }}

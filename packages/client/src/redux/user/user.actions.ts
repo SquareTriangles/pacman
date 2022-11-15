@@ -40,7 +40,7 @@ export const signin = createAsyncThunk(
   async (payload: ISigninModel, thunkApi) => {
     try{
       const { data } = await AuthService.signin(payload)
-      document.cookie = `user=${JSON.stringify(payload)}`;
+      // document.cookie = `user=${JSON.stringify(payload)}`;
       return data
     }catch(e: any){
       return thunkApi.rejectWithValue(e.response.data.reason)
