@@ -50,7 +50,7 @@ const App: React.FC = () => {
         } />
         <Route path={routeList.GAME_ROUTE} element={
           <ProtectedRoute>
-            <div />
+            <GameApp />
           </ProtectedRoute>
         } />
         <Route
