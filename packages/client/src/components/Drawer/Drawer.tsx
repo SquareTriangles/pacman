@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import Drawer, { DrawerProps } from '@mui/material/Drawer'
 
 type TcCustomDrawer = DrawerProps & {

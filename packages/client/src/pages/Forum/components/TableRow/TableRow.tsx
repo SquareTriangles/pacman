@@ -1,10 +1,11 @@
-import React from 'react'
+import type React from 'react'
 import { TableRowCustom } from '../../../../components/Table'
 import {
   LetterAvatarTableCell,
   TextTableCell,
   TitledNumberTableCell,
 } from '../TableCell/TableCell'
+//@ts-ignore
 import styles from './styles.module.css'
 
 const TOPIC_ROW_TITLE = 'Ответов'

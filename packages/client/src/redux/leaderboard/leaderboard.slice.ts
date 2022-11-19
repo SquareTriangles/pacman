@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ILeaderboardData } from '../../models/leaderboard.model'
+import type { ILeaderboardData } from '../../models/leaderboard.model'
 import * as actions from './leaderboard.actions'
-
-import { RootState } from '../store'
+import type { RootState } from '../store'
 
 interface ILeaderboardState {
   userList: Array<{data: ILeaderboardData}>,

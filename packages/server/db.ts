@@ -2,6 +2,7 @@ import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { userModel } from './models/user';
 import { topicModel } from './models/topic';
 import { commentModel } from './models/comment';
+import pg from 'pg'
 const { 
   POSTGRES_USER,
   POSTGRES_PASSWORD,
@@ -17,7 +18,8 @@ const sequelizeOptions: SequelizeOptions = {
     username: POSTGRES_USER || 'postgres',
     password: POSTGRES_PASSWORD || 'newPassword',
     database: POSTGRES_DB || 'packman_db',
-    dialect: 'postgres',
+    dialectModule: pg,//'postgres',
+    dialect: 'postgres'
 };
 
 export const sequelize = new Sequelize(sequelizeOptions); 

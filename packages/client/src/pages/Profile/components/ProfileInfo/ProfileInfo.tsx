@@ -1,5 +1,5 @@
-import React from 'react'
-import { IUserModel } from '../../../../models/user.model'
+import type React from 'react'
+import type { IUserModel } from '../../../../models/user.model'
 import Paper from '@mui/material/Paper'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'

@@ -1,6 +1,5 @@
 import { api, ApiResponse } from '../api'
-
-import { IAddLeaderboardUser, IGetLeaderboard, ILeaderboardData } from '../../models/leaderboard.model'
+import type { IAddLeaderboardUser, IGetLeaderboard, ILeaderboardData } from '../../models/leaderboard.model'
 
 const LeaderboardService = {
   getTeamLeaderboard(teamName:string, data: IGetLeaderboard): Promise<ApiResponse<Array<{data: ILeaderboardData}>>> {

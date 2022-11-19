@@ -1,8 +1,9 @@
-import React from 'react'
+import type React from 'react'
 import DiscussionForm, {
   TdiscussionformData,
 } from '../Forms/DiscussionForm/DiscussionForm'
 import Message from '../Message/Message'
+//@ts-ignore
 import styles from './styles.module.css'
 
 export type Tmessage = {

@@ -3,8 +3,8 @@ import { CELL, CELL_SIDE, FIELD_TEMPLATE } from "./constants"
 import Packman from "./Packman"
 import Enemy from "./Enemy"
 
-const EatCoin = new Audio()
-EatCoin.src = './src/assets/audio/eat_coin_sound.mp3'
+//const EatCoin = new Audio()
+//EatCoin.src = './src/assets/audio/eat_coin_sound.mp3'
 
 class Game{
     field: Field
@@ -58,7 +58,7 @@ class Game{
         if(Number.isInteger(positionX) && Number.isInteger(positionY)){
 
             if(this.field.fieldMap[positionY][positionX] === 1){
-                EatCoin.play()
+//                EatCoin.play()
                 this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0
                 this.score += 10
                 return this.score

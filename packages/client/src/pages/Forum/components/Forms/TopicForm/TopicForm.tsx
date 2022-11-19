@@ -3,6 +3,7 @@ import Form from '../../../../../components/Form/Form'
 import Input from '../../../../../components/Input/Input'
 import TextArea from '../../../../../components/TextArea/TextArea'
 import { ForumLargeButton } from '../../Button/Button'
+//@ts-ignore
 import styles from '../styles.module.css'
 
 const SAVE_TOPIC_BUTTON_TEXT = 'Send'

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 
 const NotFound: React.FC = () => {
   return <div>NotFound page</div>

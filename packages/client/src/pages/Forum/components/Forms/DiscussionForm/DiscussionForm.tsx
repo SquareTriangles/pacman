@@ -2,6 +2,7 @@ import React from 'react'
 import Form from '../../../../../components/Form/Form'
 import TextArea from '../../../../../components/TextArea/TextArea'
 import { ForumLargeButton } from '../../Button/Button'
+//@ts-ignore
 import styles from '../styles.module.css'
 
 const TEXTAREA_PLACEHOLDER = 'Сообщение'

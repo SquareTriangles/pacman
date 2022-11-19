@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import Button from '@mui/material/Button';

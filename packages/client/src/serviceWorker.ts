@@ -1,4 +1,4 @@
-declare const self: ServiceWorkerGlobalScope;
+//declare const self: ServiceWorkerGlobalScope;
 
 const CACHE_NAME_STATIC = 'static_cache-v1'; 
 const CACHE_NAME_DYNAMIC = 'dynamic-cache-v1'; 
@@ -79,6 +79,7 @@ self.addEventListener("activate", (event: any) => {
 });
 
 function startServiceWorker() {
+  console.log("ITS STARTED!!!!!!!!")
   if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
           navigator.serviceWorker.register("/serviceWorker.ts").then(registration => {

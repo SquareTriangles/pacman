@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import Typography from '@mui/material/Typography'
 
 const LOGO_TEXT = 'PACMAN'
