@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "composite": true,
+  //  "composite": true,
     "target": "es2019",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -9,10 +9,11 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "jsx": "react-jsx",
     "removeComments": true,
     "strict": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": false,
@@ -20,7 +21,7 @@
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true, 
     "importsNotUsedAsValues": "error",
-    "lib": ["es2019", "esnext.asynciterable"],
+    "lib": ["es2019", "esnext.asynciterable", "DOM"],
     "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {

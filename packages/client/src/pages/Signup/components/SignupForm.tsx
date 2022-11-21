@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import { signup } from '../../../redux/user/user.actions'
-import { ISignupModel } from '../../../models/auth.model'
+import type { ISignupModel } from '../../../models/auth.model'
 import { useNavigate } from 'react-router-dom'
 import * as routeList from '../../../utils/Routes';
 

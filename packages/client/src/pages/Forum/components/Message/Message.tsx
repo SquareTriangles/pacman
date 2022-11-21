@@ -1,5 +1,6 @@
-import React from 'react'
+import type React from 'react'
 import Avatar from '@mui/material/Avatar'
+//@ts-ignore
 import styles from './styles.module.css'
 
 export type TmessageProps = {

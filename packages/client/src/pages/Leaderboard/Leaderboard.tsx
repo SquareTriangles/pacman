@@ -1,8 +1,9 @@
-import React from 'react'
+import type React from 'react'
 import ScoreTable from './components/table/Table'
 import Header from './components/Header/Header'
 import { useAppSelector } from '../../hooks'
 import { selectLeaderboardUserList } from '../../redux/leaderboard/leaderboard.slice'
+//@ts-ignore
 import styles from './styles.module.css'
 
 const HEADER_TEXT = 'Pacman Leaders'

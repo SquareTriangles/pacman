@@ -1,9 +1,13 @@
-import React from 'react'
+import type React from 'react'
 import Avatar from '@mui/material/Avatar'
 import { TableCellCustom } from '../../../../components/Table'
+//@ts-ignore
 import laurelImage from '../../../../assets/images/laurel.png'
+//@ts-ignore
 import pacmanImage from '../../../../assets/images/pacman.png'
+//@ts-ignore
 import coinImage from '../../../../assets/images/money.png'
+//@ts-ignore
 import styles from './styles.module.css'
 
 type TtableCellNumber = {

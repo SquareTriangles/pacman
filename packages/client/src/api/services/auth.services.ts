@@ -1,5 +1,5 @@
 import { api, ApiResponse } from '../api'
-import { ISigninModel, ISignupModel, ISignupResponceModel } from '../../models/auth.model'
+import type { ISigninModel, ISignupModel, ISignupResponceModel } from '../../models/auth.model'
 
 const AuthService = {
   signin(data: ISigninModel): Promise<ApiResponse> {

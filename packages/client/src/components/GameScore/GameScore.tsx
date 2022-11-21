@@ -1,5 +1,5 @@
-import React from "react"
-import { Typography, Box } from "@mui/material";
+import type React from "react"
+import { Typography } from "@mui/material";
 
 interface IGameScoreProps {
     score: number

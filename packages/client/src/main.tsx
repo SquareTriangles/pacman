@@ -6,7 +6,8 @@ import App from './App'
 import store from './redux/store'
 import './index.css'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.hydrateRoot(
+  document.getElementById('root') as HTMLElement,
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>

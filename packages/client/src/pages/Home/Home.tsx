@@ -5,8 +5,7 @@ import Leaderboard from '../Leaderboard'
 import { ForumLargeButton } from '../Forum/components/Button/Button';
 import { getTeamLeaderboard } from '../../redux/leaderboard/leaderboard.actions'
 import { useAppDispatch } from '../../hooks'
-import { useAppSelector } from '../../hooks'
-import { selectLeaderboardUserList } from '../../redux/leaderboard/leaderboard.slice'
+//@ts-ignore
 import styles from './styles.module.css';
 
 const MAIN_BUTTON_TEXT = 'PLAY';

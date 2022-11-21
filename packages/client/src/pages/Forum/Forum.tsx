@@ -2,16 +2,17 @@ import React from 'react'
 import { connect, ConnectedProps  } from 'react-redux';
 import TopicTable from './components/Table/TopicTable'
 import Discussion, { Tmessage } from './components/Discussion/Discussion'
-import { TdiscussionformData } from './components/Forms/DiscussionForm/DiscussionForm'
+import type { TdiscussionformData } from './components/Forms/DiscussionForm/DiscussionForm'
 import CustomDrawer from '../../components/Drawer/Drawer'
 import { ForumLargeButton } from './components/Button/Button'
 import TopicForm, {
   TtopicformData,
 } from './components/Forms/TopicForm/TopicForm'
-import { RootState, AppDispatch } from '../../redux/store';
-import { IForumTopicApiModel, IForumCommentApiModel } from '../../models/forum.model';
-import { IUserModel } from '../../models/user.model'
+import type { RootState, AppDispatch } from '../../redux/store';
+import type { IForumTopicApiModel, IForumCommentApiModel } from '../../models/forum.model';
+import type { IUserModel } from '../../models/user.model'
 import { getTopicList, setTopic, setMessage } from '../../redux/forum/forum.actions';
+//@ts-ignore
 import styles from './styles.module.css'
 
 const COLOR_LIST = [

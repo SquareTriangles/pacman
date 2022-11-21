@@ -1,5 +1,7 @@
 import { CELL_SIDE } from "./constants"
 import { FIELD_TEMPLATE } from "./constants"
+//@ts-ignore
+import GhostSprite from "../../assets/images/ghost_1_sprite.png"
 
 enum DIRECTION {
     UP,
@@ -37,7 +39,7 @@ class Enemy {
         this.nextDirection = null
         this.setMoveDirection()
         this.image = new Image()
-        this.image.src = './src/assets/images/ghost_1_sprite.png'
+        this.image.src = GhostSprite
         this.animationStartTime = Date.now()
         this.stepAnimationSprite = 0
         this.startStepAnimationSprite = 0

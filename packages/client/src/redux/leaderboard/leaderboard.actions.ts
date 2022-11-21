@@ -1,10 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-
 import LeaderboardService from '../../api/services/leaderboard.services'
-import { ILeaderboardData } from '../../models/leaderboard.model'
-import { RootState } from '../store';
-import { selectLeaderboardUserList } from './leaderboard.slice';
-
+import type { ILeaderboardData } from '../../models/leaderboard.model'
+import type { RootState } from '../store';
 
 const TEAM_NAME = 'pacman'
 const RAITING_FIELD_NAME = 'score'

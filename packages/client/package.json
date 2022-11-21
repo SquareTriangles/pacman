@@ -1,10 +1,9 @@
 {
   "name": "client",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "webpack --mode=development --config client.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -17,8 +16,13 @@
     "@mui/material": "5.10.3",
     "@reduxjs/toolkit": "1.8.5",
     "axios": "0.27.2",
+    "css-loader": "^6.7.1",
+    "dotenv": "16.0.2",
     "eslint-config-prettier": "8.5.0",
+    "file-loader": "^6.2.0",
     "normalize.css": "8.0.1",
+    "null-loader": "^4.0.1",
+    "path": "^0.12.7",
     "prettier": "2.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -27,7 +31,11 @@
     "react-router-dom": "6.3.0",
     "redux-form": "8.3.8",
     "redux-thunk": "2.4.1",
-    "dotenv": "16.0.2"
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.1",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
   },
   "devDependencies": {
     "@testing-library/react": "13.3.0",

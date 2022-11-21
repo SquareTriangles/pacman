@@ -1,104 +1,103 @@
-import Field from "../../classes/game/Field"
-import { CELL, CELL_SIDE, FIELD_TEMPLATE } from "../../classes/game/constants"
-import Packman from "../../classes/game/Packman"
-import Enemy from "../../classes/game/Enemy"
+import { Box } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import GameScore from "../../components/GameScore/GameScore";
+import EndGameModal from "../../components/EndGameModal";
+import { useNavigate } from "react-router-dom";
+import Game from "../../classes/game/Game";
+//@ts-ignore
+import eatCoinSound from "../../assets/audio/eat_coin_sound.mp3"
+import type Enemy from "../../classes/game/Enemy"
+//import FullScreenButton from "./components/FullScreenButton";
 
-
-//const EatCoin = new Audio() || null
-//EatCoin.src = './src/assets/audio/eat_coin_sound.mp3'
-
-class Game{
-    field: Field
-    packman: Packman
-    score: number
-    coins: number
-    enemies: Enemy[]
-    enemyScared: boolean
-    constructor(){
-        this.field = new Field(FIELD_TEMPLATE)
-        this.score = 0
-        this.packman = new Packman(1, 10)
-        this.enemies = []
-        this.setEnemy()
-        this.coins = this.field.maxCoin
-        this.enemyScared = false
-        addEventListener('keydown', this.handleKeyDown)        
-    }
-    private setEnemy(){
-        this.enemies.push(new Enemy(13, 2))
-        this.enemies.push(new Enemy(8, 8))
-    }
-    public handleKeyDown = (e: KeyboardEvent) => {
-        const { key } = e
-        if(key === 'w'){
-            this.packman.move(0, -1, this.field.fieldMap)
-        }
-        if(key === 's'){
-            this.packman.move(0, 1, this.field.fieldMap)
-        }
-        if(key === 'a'){
-            this.packman.move(-1, 0, this.field.fieldMap)
-        }
-        if(key === 'd'){
-            this.packman.move(1, 0, this.field.fieldMap)
-        }
+const GameApp: React.FC = () => {
+    const [game, setGame] = useState<Game | null>(null)
+    const canvasRef = useRef(null)
+    const [score, setScore] = useState(0)
+    const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const navigate = useNavigate()
+    const startGame = () => {
+        setAudio(new Audio(eatCoinSound))
+        setGame(new Game)
+        setScore(0)
+        setIsModalOpen(false)
     }
 
-    public update(){
-        this.enemies.forEach(enemy => {
-            enemy.update()
-        })
-        this.packman.update()
-    }
-    public getScore(){
-        return this.score
-    }
-    public isCollideWithCoin(): void | number{
-        const positionX = this.packman.x/CELL_SIDE
-        const positionY = this.packman.y/CELL_SIDE
-        if(Number.isInteger(positionX) && Number.isInteger(positionY)){
-
-            if(this.field.fieldMap[positionY][positionX] === 1){
-    //            EatCoin.play()
-                this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0
-                this.score += 10
-                return this.score
+    useEffect(() => {
+        setGame(new Game)
+    }, [])
+    const update = () => {
+        if(game !== null){
+            (game as Game).update()
+            const isCollideWithCoin = (game as Game).isCollideWithCoin();
+            if (isCollideWithCoin) {
+                if(audio) audio.play();
+                setScore(score => score + 10);
+                (game as Game).coins--;
+                if ((game as Game).coins === 0) end()
+            }
+            if ((game as Game).isCollideWithGhost()) {
+                end()
             }
         }
-    }
-    public isCollideWithPowerball(): void | boolean{
-        const positionX = this.packman.x/CELL_SIDE
-        const positionY = this.packman.y/CELL_SIDE
-        if(Number.isInteger(positionX) && Number.isInteger(positionY)){
 
-            if(this.field.fieldMap[positionY][positionX] === CELL.POWERBALL){
-                this.field.fieldMap[this.packman.y / CELL_SIDE][this.packman.x / CELL_SIDE] = 0              
-                return true
-            }
-        }  
     }
-    public isCollideWithGhost(){
-        let isCollide = false
-        this.enemies.forEach(enemy => {
-            const centerX = enemy.x + CELL_SIDE / 2
-            const centerY = enemy.y + CELL_SIDE / 2
 
-            if(centerX > this.packman.x
-                && centerX < this.packman.x + CELL_SIDE
-                && centerY > this.packman.y
-                && centerY < this.packman.y + CELL_SIDE
-            ){
-                isCollide = true
-            }
-        })
-        return isCollide
+    const render = () => {
+        
+        if (canvasRef && canvasRef.current && game !== null) {
+            const canvasEl = canvasRef.current as HTMLCanvasElement
+            const ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
+            ctx.clearRect(0, 0, 300, 300);
+            (game as Game).field.render(ctx);
+            (game as Game).packman.render(ctx);
+            (game as Game).enemies.forEach((enemy: Enemy) => {
+                enemy.render(ctx)
+            })
+        }
     }
-    public end(){
-        removeEventListener('keydown', this.handleKeyDown)
-        this.enemies.forEach(enemy => {
-            enemy.stop()
-        })
+    const end = () => {
+    //    if(game === null) return
+        (game as Game).end()
+        setIsModalOpen(true)
     }
+    const closeGame = () => {
+        navigate('/')
+    }
+    const animate = () => {
+        update()
+        render()
+        requestAnimationFrame(animate)
+    }
+    useEffect(() => {
+        
+        if (canvasRef && canvasRef.current) {
+        //    startGame()
+            animate()
+        }
+
+    }, [game])
+
+    return (
+        <>
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column'
+            }}>
+                <GameScore score={score}></GameScore>
+                <canvas ref={canvasRef} width={300} height={300}></canvas>
+                <EndGameModal
+                    isOpen={isModalOpen}
+                    newGameAction={startGame}
+                    endGameAction={closeGame}
+                ></EndGameModal>
+            </Box>
+
+        </>
+
+    )
 }
 
-export default Game
+export default GameApp
