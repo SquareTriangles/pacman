@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box'
+//@ts-ignore
 import yandexIcon from '../../../assets/images/yandex.svg'
 import { getOAuthYandexServiceId, signinWithOAuthYandex, getProfile } from '../../../redux/user/user.actions'
 import { useAppDispatch, useAppSelector } from '../../../hooks'

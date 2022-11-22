@@ -1,4 +1,6 @@
 import { CELL_SIDE } from "./constants"
+//@ts-ignore
+import PackmanSprite from '../../assets/images/packman_sprite.png'
 const PACKMAN_SPRITE_SPACE = 50
 class Packman {
     x: number
@@ -18,7 +20,7 @@ class Packman {
 
     constructor(positionColumn: number, positionRow: number) {
         this.image = new Image()
-        this.image.src = './src/assets/images/packman_sprite.png'
+        this.image.src = PackmanSprite
         this.x = positionColumn * CELL_SIDE
         this.y = positionRow * CELL_SIDE
         this.directionX = 0

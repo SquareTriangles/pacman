@@ -1,9 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { IUpdateProfileModel, IUpdatePasswordModel } from '../../models/user.model'
-
-import { IUserModel } from '../../models/user.model'
-import { ISigninModel, ISignupModel } from '../../models/auth.model'
-import { IYandexSigninModel } from '../../models/yandexAuth.model';
+import type { IUpdateProfileModel, IUpdatePasswordModel } from '../../models/user.model'
+import type { ISigninModel, ISignupModel } from '../../models/auth.model'
+import type { IYandexSigninModel } from '../../models/yandexAuth.model';
 
 import AuthService from '../../api/services/auth.services'
 import UserService from '../../api/services/user.services'

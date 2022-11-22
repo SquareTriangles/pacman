@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import ForumService from '../../api/services/forum.service'
-import { IforumTopicModel, IforumMessageModel, IForumTopicApiModel, IForumCommentResponceDataApiModel, IForumCommentApiModel } from '../../models/forum.model'
-import { RootState } from '../store';
+import type { IForumTopicApiModel, IForumCommentResponceDataApiModel, IForumCommentApiModel } from '../../models/forum.model'
+import type { RootState } from '../store';
+//@ts-ignore
 import pacmanImage from '../../assets/images/pacman.png'
 
 const getRundomNumber = () => Math.ceil(Math.random() * 1000)

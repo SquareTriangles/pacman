@@ -1,6 +1,6 @@
-import React from 'react'
+import type React from 'react'
 import { useAppDispatch } from '../../../../hooks'
-import { IUpdatePasswordModel } from '../../../../models/user.model'
+import type { IUpdatePasswordModel } from '../../../../models/user.model'
 import { updatePassword } from '../../../../redux/user/user.actions'
 import { useForm } from 'react-hook-form'
 import Paper from '@mui/material/Paper'

@@ -13,7 +13,7 @@ import GameApp from './pages/Game'
 import * as routeList from './utils/Routes';
 import './App.css'
 import 'normalize.css'
-import startServiceWorker from './serviceWorker';
+//import startServiceWorker from './serviceWorker';
 import { getProfile } from './redux/user/user.actions'
 import { useAppDispatch } from './hooks'
 
@@ -29,7 +29,11 @@ const App: React.FC = () => {
   isCookeisValid();
 
   React.useEffect(() => {
-    startServiceWorker();
+    (async function(){
+      const startServiceWorker = await import('./serviceWorker')
+      startServiceWorker;
+    })()
+
   }, [])
 
   return (

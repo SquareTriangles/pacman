@@ -1,6 +1,7 @@
-import React from 'react'
+import type React from 'react'
 import Avatar from '@mui/material/Avatar'
 import { TableCellCustom } from '../../../../components/Table'
+//@ts-ignore
 import styles from './styles.module.css'
 
 type TletterAvatarTableCell = {

@@ -1,5 +1,5 @@
-import Block from "./Block"
-import Point from "./Point"
+import type Block from "./Block"
+import type Point from "./Point"
 import { CELL, CELL_SIDE } from "./constants"
 
 class Field {

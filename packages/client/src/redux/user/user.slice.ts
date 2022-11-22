@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IUserModel } from '../../models/user.model'
+import type { IUserModel } from '../../models/user.model'
 
 import {
   signin,
@@ -10,8 +10,9 @@ import {
   updateAvatar,
   getOAuthYandexServiceId,
 } from './user.actions'
+//@ts-ignore
 import avatarImage from '../../assets/images/avatar.png'
-import { RootState } from '../store'
+import type { RootState } from '../store'
 
 export interface IAuthState {
   isAuth: boolean

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import TableCell, { TableCellProps } from '@mui/material/TableCell'
 
 const TableCellCustom: React.FC<TableCellProps> = ({ children, ...rest }) => {

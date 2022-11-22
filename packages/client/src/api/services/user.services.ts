@@ -1,5 +1,5 @@
 import { api, ApiResponse } from '../api'
-import { IUserModel, IUpdateProfileModel, IUpdatePasswordModel } from '../../models/user.model'
+import type { IUserModel, IUpdateProfileModel, IUpdatePasswordModel } from '../../models/user.model'
 
 const AuthService = {
   getProfile(): Promise<ApiResponse<IUserModel>> {

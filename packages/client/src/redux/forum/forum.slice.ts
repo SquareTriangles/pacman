@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IforumTopicModel, IForumTopicResponceDataApiModel, IForumCommentResponceDataApiModel } from '../../models/forum.model'
+import type { IForumTopicResponceDataApiModel } from '../../models/forum.model'
 import * as actions from './forum.actions';
 
 

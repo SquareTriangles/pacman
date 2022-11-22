@@ -1,5 +1,5 @@
 import { api, ApiResponse } from '../api'
-import { 
+import type { 
   IYandexSigninModel,
   IGetYandexServiceIDModel,
   IYandexServiceIDModel,

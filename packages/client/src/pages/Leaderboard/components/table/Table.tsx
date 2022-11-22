@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
@@ -8,6 +8,7 @@ import {
   TableCellNumber,
   TableCellScore,
 } from '../TableCell/TableCell'
+//@ts-ignore
 import styles from './styles.module.css'
 
 const templateData = [

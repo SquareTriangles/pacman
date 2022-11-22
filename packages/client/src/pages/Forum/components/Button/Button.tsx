@@ -1,4 +1,5 @@
-import React from 'react'
+import type React from 'react'
+//@ts-ignore
 import styles from './styles.module.css'
 
 type Tbutton = React.ButtonHTMLAttributes<HTMLButtonElement>

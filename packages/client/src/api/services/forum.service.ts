@@ -1,6 +1,6 @@
 import { forumApi, ApiResponse } from '../forumAPI'
 
-import { 
+import type { 
   IForumUserApiModel,
   IForumCommentApiModel,
   IForumTopicApiModel,

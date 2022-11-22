@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import TableRow, { TableRowProps } from '@mui/material/TableRow'
 
 const TableRowCustom: React.FC<TableRowProps> = ({ children, ...rest }) => {
