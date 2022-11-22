@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-
-const API_URL = 'http://192.168.31.20:3000'
+const API_URL = 'http://localhost:3001'
 
 export type ApiResponse<T = unknown> = AxiosResponse<T>
 
