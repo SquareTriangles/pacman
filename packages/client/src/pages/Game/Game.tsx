@@ -8,14 +8,17 @@ import Game from "../../classes/game/Game";
 import eatCoinSound from "../../assets/audio/eat_coin_sound.mp3"
 import type Enemy from "../../classes/game/Enemy"
 import StartLoader from '../../components/StartLoader/StartLoader'
-//import FullScreenButton from "./components/FullScreenButton";
+import { useFullscreenStatus } from "../../hooks";
+import FullScreenButton from "./components/FullScreenButton";
 
 const GameApp: React.FC = () => {
+    const fullScreenRef:React.RefObject<HTMLElement> = useRef(null)
     const [game, setGame] = useState<Game | null>(null)
     const canvasRef = useRef(null)
     const [score, setScore] = useState(0)
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isFullscreen, changeFullScreenMode] = useFullscreenStatus(fullScreenRef);
     const [isShowLoader, setIsShowLoader] = useState(true);
     const navigate = useNavigate()
     const startGame = () => {
@@ -86,7 +89,9 @@ const GameApp: React.FC = () => {
 
     return (
         <>
-            <Box sx={{
+            <Box 
+            ref={fullScreenRef}
+            sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -94,6 +99,11 @@ const GameApp: React.FC = () => {
             }}>
                 <GameScore score={score}></GameScore>
                 <canvas ref={canvasRef} width={300} height={300}></canvas>
+                {
+                    isFullscreen !== null
+                        ? <FullScreenButton onClick={changeFullScreenMode} isActive={isFullscreen} />
+                        : <></>
+                }
                 <EndGameModal
                     isOpen={isModalOpen}
                     newGameAction={startGame}
