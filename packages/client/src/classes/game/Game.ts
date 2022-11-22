@@ -21,7 +21,8 @@ class Game{
         this.setEnemy()
         this.coins = this.field.maxCoin
         this.enemyScared = false
-        addEventListener('keydown', this.handleKeyDown)        
+        this.handleKeyDown = this.handleKeyDown.bind(this)
+        addEventListener('keydown', this.handleKeyDown)       
     }
     private setEnemy(){
         this.enemies.push(new Enemy(13, 2))

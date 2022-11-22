@@ -8,8 +8,10 @@ import Game from "../../classes/game/Game";
 import eatCoinSound from "../../assets/audio/eat_coin_sound.mp3"
 import type Enemy from "../../classes/game/Enemy"
 import StartLoader from '../../components/StartLoader/StartLoader'
-import { useFullscreenStatus } from "../../hooks";
+import { useAppDispatch, useAppSelector, useFullscreenStatus } from "../../hooks";
 import FullScreenButton from "./components/FullScreenButton";
+import * as scoreActions from '../../redux/leaderboard/leaderboard.actions'
+import { selectProfile } from "../../redux/user/user.slice";
 
 const GameApp: React.FC = () => {
     const fullScreenRef:React.RefObject<HTMLElement> = useRef(null)
@@ -21,6 +23,16 @@ const GameApp: React.FC = () => {
     const [isFullscreen, changeFullScreenMode] = useFullscreenStatus(fullScreenRef);
     const [isShowLoader, setIsShowLoader] = useState(true);
     const navigate = useNavigate()
+    const profile = useAppSelector(selectProfile);
+    const dispatch = useAppDispatch();
+
+    const setUserScore = (score: number) => {
+        const { id, login } = profile;
+        dispatch(scoreActions.setScore({
+            id: String(id), login, score
+        }))
+    }
+
     const startGame = () => {
         setAudio(new Audio(eatCoinSound))
         setGame(new Game)
@@ -42,10 +54,14 @@ const GameApp: React.FC = () => {
                 if(audio) audio.play();
                 setScore(score => score + 10);
                 (game as Game).coins--;
-                if ((game as Game).coins === 0) end()
+                if ((game as Game).coins === 0) {
+                    end();
+                    setUserScore(game.getScore())
+                }
             }
             if ((game as Game).isCollideWithGhost()) {
                 end()
+                setUserScore(game.getScore())
             }
         }
 
