@@ -93,11 +93,12 @@ class Game{
         return isCollide
     }
     public end(){
-        removeEventListener('keydown', this.handleKeyDown)
-        this.enemies.forEach(enemy => {
-            enemy.stop()
-        })
-    }
+      removeEventListener('keydown', this.handleKeyDown)
+      this.enemies.forEach(enemy => {
+          enemy.stop()
+      })
+      this.enemies = []
+  }
 }
 
 export default Game

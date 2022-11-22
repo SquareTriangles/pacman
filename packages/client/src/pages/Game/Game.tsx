@@ -7,6 +7,7 @@ import Game from "../../classes/game/Game";
 //@ts-ignore
 import eatCoinSound from "../../assets/audio/eat_coin_sound.mp3"
 import type Enemy from "../../classes/game/Enemy"
+import StartLoader from '../../components/StartLoader/StartLoader'
 //import FullScreenButton from "./components/FullScreenButton";
 
 const GameApp: React.FC = () => {
@@ -15,6 +16,7 @@ const GameApp: React.FC = () => {
     const [score, setScore] = useState(0)
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isShowLoader, setIsShowLoader] = useState(true);
     const navigate = useNavigate()
     const startGame = () => {
         setAudio(new Audio(eatCoinSound))
@@ -24,7 +26,10 @@ const GameApp: React.FC = () => {
     }
 
     useEffect(() => {
-        setGame(new Game)
+        setTimeout(() => {
+            setIsShowLoader(false)
+            setGame(new Game)
+        }, 2000)
     }, [])
     const update = () => {
         if(game !== null){
@@ -63,6 +68,7 @@ const GameApp: React.FC = () => {
     }
     const closeGame = () => {
         navigate('/')
+        end()
     }
     const animate = () => {
         update()
@@ -93,6 +99,11 @@ const GameApp: React.FC = () => {
                     newGameAction={startGame}
                     endGameAction={closeGame}
                 ></EndGameModal>
+                {
+                    isShowLoader
+                        ? <StartLoader />
+                        : <> </>
+                }
             </Box>
 
         </>
