@@ -12,7 +12,7 @@ import type { RootState, AppDispatch } from '../../redux/store';
 import type { IForumTopicApiModel, IForumCommentApiModel } from '../../models/forum.model';
 import type { IUserModel } from '../../models/user.model'
 import { getTopicList, setTopic, setMessage } from '../../redux/forum/forum.actions';
-//@ts-ignore
+import { IForumCommentResponceDataApiModel } from '../../models/forum.model';
 import styles from './styles.module.css'
 
 const COLOR_LIST = [
@@ -47,6 +47,15 @@ type TmapStateToProps = (state: RootState) => ({
 
 const dateToString = (date:number) => String(date)
 
+export const renderMassageLsit = (messageList: IForumCommentResponceDataApiModel[]) => messageList.map((item) => ({
+  user: {
+    name: item?.User?.login || '',
+    photo: item?.User?.avatar || ''
+  },
+  date: item.createdAt,
+  body: item.body,
+}))
+
 const mapStateToProps:TmapStateToProps = (state: RootState) => {
   const comments = state.forum.comments;
   const user = state.user.profile;
@@ -58,14 +67,7 @@ const mapStateToProps:TmapStateToProps = (state: RootState) => {
       replyNumber: comments[topic.id]?.length ? comments[topic.id]?.length - 1 : 0,
       color: getRandomArrayitem(COLOR_LIST),
       body: topic.body,
-      messageList: (comments[topic.id] || []).map((item) => ({
-        user: {
-          name: item?.User?.login || '',
-          photo: item?.User?.avatar || ''
-        },
-        date: item.createdAt,
-        body: item.body,
-      }))
+      messageList: renderMassageLsit(comments[topic.id])
     }
   })
   return ({
