@@ -5,7 +5,7 @@ import { Avatar, Divider, Grid } from "@mui/material";
 import styles from './styles.module.css'
 
 
-import pacman_image from '../../assets/images/pac-man.webp'
+import pacman_image from '../../assets/images/pac-man.png'
 import react_image from '../../assets/images/React.png'
 import docker_image from '../../assets/images/docker.png'
 import expressjs_image from '../../assets/images/Expressjs.png'
