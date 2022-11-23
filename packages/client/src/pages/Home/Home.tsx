@@ -7,16 +7,24 @@ import { getTeamLeaderboard } from '../../redux/leaderboard/leaderboard.actions'
 import { useAppDispatch } from '../../hooks'
 //@ts-ignore
 import styles from './styles.module.css';
+import { useNavigate } from 'react-router-dom';
+import { GAME_ROUTE } from '../../utils/Routes';
 
 const MAIN_BUTTON_TEXT = 'PLAY';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
   // const leaderboardList = useAppSelector(selectLeaderboardUserList) || [];
 
   useEffect(() => {
     dispatch(getTeamLeaderboard({cursor: 0, limit: 10 }));
   }, [])
+
+  const onPlayClick = () => {
+    navigate(GAME_ROUTE)
+  }
+
   return (
     <Box>
       <Grid container>
@@ -25,7 +33,11 @@ const Home: FC = () => {
           display: 'flex',
           justifyContent: 'center',
         }}>
-          <ForumLargeButton text={MAIN_BUTTON_TEXT} className={styles.button}/>
+          <ForumLargeButton
+              text={MAIN_BUTTON_TEXT}
+              className={styles.button}
+              onClick={onPlayClick}
+          />
         </Grid>
         <Grid item xs={6}>
           <Leaderboard />

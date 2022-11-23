@@ -7,15 +7,32 @@ import Game from "../../classes/game/Game";
 //@ts-ignore
 import eatCoinSound from "../../assets/audio/eat_coin_sound.mp3"
 import type Enemy from "../../classes/game/Enemy"
-//import FullScreenButton from "./components/FullScreenButton";
+import StartLoader from '../../components/StartLoader/StartLoader'
+import { useAppDispatch, useAppSelector, useFullscreenStatus } from "../../hooks";
+import FullScreenButton from "./components/FullScreenButton";
+import * as scoreActions from '../../redux/leaderboard/leaderboard.actions'
+import { selectProfile } from "../../redux/user/user.slice";
 
 const GameApp: React.FC = () => {
+    const fullScreenRef:React.RefObject<HTMLElement> = useRef(null)
     const [game, setGame] = useState<Game | null>(null)
     const canvasRef = useRef(null)
     const [score, setScore] = useState(0)
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isFullscreen, changeFullScreenMode] = useFullscreenStatus(fullScreenRef);
+    const [isShowLoader, setIsShowLoader] = useState(true);
     const navigate = useNavigate()
+    const profile = useAppSelector(selectProfile);
+    const dispatch = useAppDispatch();
+
+    const setUserScore = (score: number) => {
+        const { id, login } = profile;
+        dispatch(scoreActions.setScore({
+            id: String(id), login, score
+        }))
+    }
+
     const startGame = () => {
         setAudio(new Audio(eatCoinSound))
         setGame(new Game)
@@ -24,7 +41,10 @@ const GameApp: React.FC = () => {
     }
 
     useEffect(() => {
-        setGame(new Game)
+        setTimeout(() => {
+            setIsShowLoader(false)
+            setGame(new Game)
+        }, 2000)
     }, [])
     const update = () => {
         if(game !== null){
@@ -34,10 +54,14 @@ const GameApp: React.FC = () => {
                 if(audio) audio.play();
                 setScore(score => score + 10);
                 (game as Game).coins--;
-                if ((game as Game).coins === 0) end()
+                if ((game as Game).coins === 0) {
+                    end();
+                    setUserScore(game.getScore())
+                }
             }
             if ((game as Game).isCollideWithGhost()) {
                 end()
+                setUserScore(game.getScore())
             }
         }
 
@@ -63,6 +87,7 @@ const GameApp: React.FC = () => {
     }
     const closeGame = () => {
         navigate('/')
+        end()
     }
     const animate = () => {
         update()
@@ -80,7 +105,9 @@ const GameApp: React.FC = () => {
 
     return (
         <>
-            <Box sx={{
+            <Box 
+            ref={fullScreenRef}
+            sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -88,11 +115,21 @@ const GameApp: React.FC = () => {
             }}>
                 <GameScore score={score}></GameScore>
                 <canvas ref={canvasRef} width={300} height={300}></canvas>
+                {
+                    isFullscreen !== null
+                        ? <FullScreenButton onClick={changeFullScreenMode} isActive={isFullscreen} />
+                        : < />
+                }
                 <EndGameModal
                     isOpen={isModalOpen}
                     newGameAction={startGame}
                     endGameAction={closeGame}
                 ></EndGameModal>
+                {
+                    isShowLoader
+                        ? <StartLoader />
+                        : < />
+                }
             </Box>
 
         </>

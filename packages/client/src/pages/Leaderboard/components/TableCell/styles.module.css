@@ -41,6 +41,7 @@
   justify-content: flex-start;
   align-items: center;
   width: fit-content;
+  max-width: 500px;
 }
 
 .tableCell__type_name p {

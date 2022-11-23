@@ -21,7 +21,8 @@ class Game{
         this.setEnemy()
         this.coins = this.field.maxCoin
         this.enemyScared = false
-        addEventListener('keydown', this.handleKeyDown)        
+        this.handleKeyDown = this.handleKeyDown.bind(this)
+        addEventListener('keydown', this.handleKeyDown)       
     }
     private setEnemy(){
         this.enemies.push(new Enemy(13, 2))
@@ -93,11 +94,12 @@ class Game{
         return isCollide
     }
     public end(){
-        removeEventListener('keydown', this.handleKeyDown)
-        this.enemies.forEach(enemy => {
-            enemy.stop()
-        })
-    }
+      removeEventListener('keydown', this.handleKeyDown)
+      this.enemies.forEach(enemy => {
+          enemy.stop()
+      })
+      this.enemies = []
+  }
 }
 
 export default Game

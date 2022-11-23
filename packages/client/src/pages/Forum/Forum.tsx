@@ -12,7 +12,8 @@ import type { RootState, AppDispatch } from '../../redux/store';
 import type { IForumTopicApiModel, IForumCommentApiModel } from '../../models/forum.model';
 import type { IUserModel } from '../../models/user.model'
 import { getTopicList, setTopic, setMessage } from '../../redux/forum/forum.actions';
-import { IForumCommentResponceDataApiModel } from '../../models/forum.model';
+import type { IForumCommentResponceDataApiModel } from '../../models/forum.model';
+//@ts-ignore
 import styles from './styles.module.css'
 
 const COLOR_LIST = [

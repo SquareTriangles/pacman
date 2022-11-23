@@ -1,17 +1,25 @@
 import type React from "react";
 import { Container } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { Avatar, Divider, Grid } from "@mui/material";
+import { Avatar,  Grid } from "@mui/material";
+//@ts-ignore
 import styles from './styles.module.css'
 
-
-import pacman_image from '../../assets/images/pac-man.webp'
+//@ts-ignore
+import pacman_image from '../../assets/images/pac-man.png'
+//@ts-ignore
 import react_image from '../../assets/images/React.png'
+//@ts-ignore
 import docker_image from '../../assets/images/docker.png'
+//@ts-ignore
 import expressjs_image from '../../assets/images/Expressjs.png'
+//@ts-ignore
 import git_image from '../../assets/images/git.png'
+//@ts-ignore
 import nodejs_image from '../../assets/images/nodejs.png'
+//@ts-ignore
 import oauth_image from '../../assets/images/oauth.png'
+//@ts-ignore
 import redux_image from '../../assets/images/redux.png'
 
 type TTecnology = {
