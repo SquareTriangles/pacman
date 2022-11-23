@@ -37,7 +37,10 @@ const EndGameModal: React.FC<IEndGameModalProps> = (props) => {
                         border: '1px solid black',
                         color: 'black'
                     }}
-                        onClick={handleEndGame}>Таблица лидеров</Button>
+                        onClick={handleEndGame}
+                        >
+                            Таблица лидеров
+                        </Button>
                     <Stack direction='row' mt={3} spacing={1}>
                         <Button sx={{
                             bgcolor: '#ff9800',
