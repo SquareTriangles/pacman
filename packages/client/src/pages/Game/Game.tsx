@@ -128,7 +128,7 @@ const GameApp: React.FC = () => {
                 {
                     isShowLoader
                         ? <StartLoader />
-                        : <> </>
+                        : < />
                 }
             </Box>
 
