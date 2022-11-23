@@ -33,7 +33,11 @@ const Home: FC = () => {
           display: 'flex',
           justifyContent: 'center',
         }}>
-          <ForumLargeButton text={MAIN_BUTTON_TEXT} className={styles.button} onClick={onPlayClick} />
+          <ForumLargeButton
+              text={MAIN_BUTTON_TEXT}
+              className={styles.button}
+              onClick={onPlayClick}
+          />
         </Grid>
         <Grid item xs={6}>
           <Leaderboard />
