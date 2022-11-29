@@ -1,4 +1,8 @@
 @font-face {
   font-family: AlfaSlabOne;
-  src: url(AlfaSlabOne-Regular.ttf);
+  src: url('AlfaSlabOne-Regular.eot');
+  src: url('AlfaSlabOne-Regular.eot?#iefix') format('embedded-opentype'),
+      url('AlfaSlabOne-Regular.woff2') format('woff2'),
+      url('AlfaSlabOne-Regular.woff') format('woff'),
+      url('AlfaSlabOne-Regular.ttf') format('truetype');
 }

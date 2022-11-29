@@ -118,7 +118,7 @@ const GameApp: React.FC = () => {
                 {
                     isFullscreen !== null
                         ? <FullScreenButton onClick={changeFullScreenMode} isActive={isFullscreen} />
-                        : < />
+                        : <> </>
                 }
                 <EndGameModal
                     isOpen={isModalOpen}
@@ -128,7 +128,7 @@ const GameApp: React.FC = () => {
                 {
                     isShowLoader
                         ? <StartLoader />
-                        : < />
+                        : <> </>
                 }
             </Box>
 

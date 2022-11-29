@@ -1,5 +1,6 @@
 ARG NODE_VERSION=16
 ARG SERVER_PORT=3001
+ARG FORUM_URL
 
 FROM node:$NODE_VERSION-buster as base
 
@@ -7,21 +8,31 @@ WORKDIR /app
 
 FROM base as builder
 
+ARG FORUM_URL
+ENV FORUM_URL=$FORUM_URL
+
 COPY package.json yarn.lock
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile && yarn add lerna
 
 COPY . .
 
+
 RUN yarn lerna bootstrap
-RUN rm -rf /app/packages/server/dist/ && yarn lerna build --scope=server
+RUN rm -rf /app/packages/client/dist/ && yarn build --scope=client
+RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
+
 
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
 
-COPY --from=builder /app/packages/server/dist/ /app/
-COPY --from=builder /app/packages/server/package.json /app/package.json
+RUN mkdir /app/packages && mkdir /app/packages/client && mkdir /app/packages/client/dist && mkdir /app/packages/server
+
+COPY --from=builder /app/packages/client/dist/ /app/packages/client/dist/
+COPY --from=builder /app/packages/server/ /app/packages/server/
+COPY --from=builder /app/packages/server/index.js /app/packages/server/index.js
+COPY --from=builder /app/packages/server/package.json /app/packages/server/dist/package.json
 RUN yarn install --production=true
 
-EXPOSE $SERVER_PORT
-CMD [ "node", "/app/index.js" ]
+
+CMD ["node", "/app/packages/server/index.js" ]

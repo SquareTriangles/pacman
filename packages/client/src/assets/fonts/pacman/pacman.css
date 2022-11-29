@@ -1,4 +1,8 @@
 @font-face {
   font-family: pacman;
-  src: url(pacfont.ttf);
+  src: url('PacFont.eot');
+  src: url('PacFont.eot?#iefix') format('embedded-opentype'),
+      url('PacFont.woff2') format('woff2'),
+      url('PacFont.woff') format('woff'),
+      url('PacFont.ttf') format('truetype');
 }

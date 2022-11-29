@@ -22,13 +22,18 @@ module.exports = {
       },
       {
         test: /\.(eot|woff2?|ttf)$/i,
-        use:
-        {
-          loader: 'file-loader',
-          options: {
-            name: './assets/fonts/[name].[ext]'
-          }
-        },
+        type: '/assets/fonts/',
+        dependency: { not: ['url'] }
+        // use:
+        // {
+        //   // loader: 'file-loader',
+        //   type: '/assets/fonts/',
+        //   // dependency: { not: ['url'] },
+        //   options: {
+        //     name: '[name].[ext]',
+        //     outputPath: '/assets/fonts/'
+        //   }
+        // },
       },    
       {
         test: /\.(mp3)$/i,
